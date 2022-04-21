@@ -1,13 +1,7 @@
 from django.core.validators import MinLengthValidator
 from django.db import models
+from config.validators import CharValidator
 import uuid
-
-from rest_framework.exceptions import ValidationError
-
-
-def CharValidator(value):
-    if not value.isalpha():
-        raise ValidationError(detail='All the characters must be alphabet letters')
 
 
 class Category(models.Model):
