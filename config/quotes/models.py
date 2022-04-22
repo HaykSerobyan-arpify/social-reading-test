@@ -22,9 +22,9 @@ class Quote(models.Model):
                                      validators=[MinLengthValidator(limit_value=2, message=None),
                                                  CharValidator])
 
-    quote_file = models.ImageField('Quote', upload_to='',
+    quote_file = models.ImageField('Quote', upload_to='upload',
                                    validators=[validate_image_file_extension,
-                                               FileExtensionValidator(allowed_extensions=['jpeg', 'png'])])
+                                               FileExtensionValidator(allowed_extensions=['jpeg', 'png', 'jpg'])])
 
     def __str__(self):
         return f'Author: {self.book_author}\n' \

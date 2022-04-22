@@ -1,16 +1,9 @@
 from rest_framework import serializers
 from rest_framework import viewsets
+import pymongo
+
 from quotes.models import Quote
 from categories.models import Category
-
-
-def get_client_ip(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]
-    else:
-        ip = request.META.get('REMOTE_ADDR')
-    return ip
 
 
 class QuoteSerializer(serializers.ModelSerializer):
@@ -24,4 +17,10 @@ class QuotesViewSet(viewsets.ModelViewSet):
     queryset = Quote.objects.all()
 
     def get_success_headers(self, data):
-        Category.objects.create(name=data['book_category'])
+        client = pymongo.MongoClient()
+        db = client.social_reading_db
+        category = data['book_category'].capitalize()
+        print(category)
+        if db.categories_category.find_one({"name": category}) is None:
+            Category.objects.create(name=category)
+        print(self.request.user)

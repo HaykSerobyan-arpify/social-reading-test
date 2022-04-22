@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-t^694pr*ju(n*$=a(ckpgia%^upx9#t6a8*d+gx+oae6arvm35
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -38,9 +38,12 @@ INSTALLED_APPS = [
     'rest_framework',
     'categories',
     'quotes',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -78,6 +81,7 @@ DATABASES = {
         'ENGINE': 'djongo',
         'NAME': 'social_reading_db',
         'ENFORCE_SCHEMA': False,
+
     }
 }
 
@@ -127,4 +131,5 @@ DRF_API_LOGGER_DATABASE = True
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
