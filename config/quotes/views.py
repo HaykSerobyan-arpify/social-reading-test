@@ -15,7 +15,7 @@ class QuoteSerializer(serializers.ModelSerializer):
 class QuotesViewSet(viewsets.ModelViewSet):
     serializer_class = QuoteSerializer
     queryset = Quote.objects.all()
-
+"""
     def get_success_headers(self, data):
         client = pymongo.MongoClient()
         db = client.social_reading_db
@@ -24,3 +24,4 @@ class QuotesViewSet(viewsets.ModelViewSet):
         if db.categories_category.find_one({"name": category}) is None:
             Category.objects.create(name=category)
         print(self.request.user)
+"""

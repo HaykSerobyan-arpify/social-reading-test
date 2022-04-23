@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-t^694pr*ju(n*$=a(ckpgia%^upx9#t6a8*d+gx+oae6arvm35
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['0.0.0.0:8000']
 
 # Application definition
 
@@ -81,7 +81,6 @@ DATABASES = {
         'ENGINE': 'djongo',
         'NAME': 'social_reading_db',
         'ENFORCE_SCHEMA': False,
-
     }
 }
 
