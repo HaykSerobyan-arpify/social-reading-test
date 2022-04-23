@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from rest_framework import viewsets
 from .models import Category
-from django.shortcuts import render
 from ipware import get_client_ip
 
 
