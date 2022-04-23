@@ -18,11 +18,13 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from config.settings import MEDIA_URL, MEDIA_ROOT
 from django.views.static import serve
+from quotes.views import coming_soon
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('categories/', include('categories.urls')),
     path('quotes/', include('quotes.urls')),
+    path('', coming_soon, name='coming_soon')
 ]
 
 urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)

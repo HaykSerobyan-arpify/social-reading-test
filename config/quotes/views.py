@@ -1,9 +1,14 @@
+from django.shortcuts import render
 from rest_framework import serializers
 from rest_framework import viewsets
 from quotes.models import Quote
 from categories.models import Category
 import pymongo
 from config.settings import MONGO_URI
+
+
+def coming_soon(request):
+    return render(request, 'quotes/coming_soon.html')
 
 
 class QuoteSerializer(serializers.ModelSerializer):
