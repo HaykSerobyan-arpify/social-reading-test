@@ -24,7 +24,7 @@ MONGO_URI = 'mongodb+srv://doadmin:9dl2gm8073J16yUq@db-mongodb-social-reading-81
             'admin?authSource=admin&replicaSet=db-mongodb-social-reading&tls=true&tlsCAFile=config/ca-certificate.cer'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
