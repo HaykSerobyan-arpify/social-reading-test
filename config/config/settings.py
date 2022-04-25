@@ -24,7 +24,7 @@ MONGO_URI = 'mongodb+srv://doadmin:9dl2gm8073J16yUq@db-mongodb-social-reading-81
             'admin?authSource=admin&replicaSet=db-mongodb-social-reading&tls=true&tlsCAFile=config/ca-certificate.cer'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -64,7 +64,6 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'django.template.context_processors.media'
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
