@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include, re_path
-from config.settings import MEDIA_URL, MEDIA_ROOT
+from config.settings import MEDIA_URL, MEDIA_ROOT, STATIC_ROOT, STATIC_URL
 from django.views.static import serve
 from quotes.views import coming_soon
 
@@ -27,6 +27,6 @@ urlpatterns = [
     path('', coming_soon, name='coming_soon')
 ]
 
-urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
+urlpatterns += static(STATIC_URL, document_root=STATIC_ROOT)
 
 urlpatterns += [re_path(r'^media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT, }), ]
