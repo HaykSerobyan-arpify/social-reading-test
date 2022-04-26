@@ -11,14 +11,14 @@ class Quote(models.Model):
         default=uuid.uuid4,
         editable=False)
 
-    book_author = models.CharField('Author', max_length=15,
+    book_author = models.CharField('Author', max_length=20,
                                    validators=[MinLengthValidator(limit_value=2, message=None),
                                                CharValidator])
-    book_title = models.CharField('Title', max_length=15,
+    book_title = models.CharField('Title', max_length=20,
                                   validators=[MinLengthValidator(limit_value=2, message=None),
                                               CharValidator])
 
-    book_category = models.CharField('Category', max_length=15,
+    book_category = models.CharField('Category', max_length=20,
                                      validators=[MinLengthValidator(limit_value=2, message=None),
                                                  CharValidator])
 
