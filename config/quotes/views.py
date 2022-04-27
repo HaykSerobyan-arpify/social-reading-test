@@ -22,7 +22,7 @@ class QuotesViewSet(viewsets.ModelViewSet):
     queryset = Quote.objects.all()
 
     def get_success_headers(self, data):
-        client = pymongo.MongoClient(MONGO_URI)
+        client = pymongo.MongoClient()
         db = client.social_reading_db
         category = data['book_category'].capitalize()
         print(category)
