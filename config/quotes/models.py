@@ -1,5 +1,5 @@
 import uuid
-from updown.fields import RatingField
+#from updown.fields import RatingField
 from django.core.validators import MinLengthValidator, validate_image_file_extension, FileExtensionValidator
 from django.db import models
 from django.urls import reverse
@@ -33,7 +33,7 @@ class Quote(models.Model):
 
     date_posted = models.DateTimeField(auto_now_add=True)
 
-    rating = RatingField(can_change_vote=True)
+    # rating = RatingField(can_change_vote=True)
 
     def get_comments(self):
         return self.comments.filter(parent=None).filter(active=True)
