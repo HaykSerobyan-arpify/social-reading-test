@@ -1,8 +1,6 @@
 import uuid
-# from updown.fields import RatingField
 from django.core.validators import MinLengthValidator, validate_image_file_extension, FileExtensionValidator
 from django.db import models
-# from django.urls import reverse
 from config.validators import CharValidator
 from register.models import User
 
@@ -13,7 +11,6 @@ class Quote(models.Model):
         default=uuid.uuid4,
         editable=False)
 
-    # user_email = models.EmailField('Email', max_length=20, blank=True, help_text='May be blank for tests')
     author = models.ForeignKey(User, related_name='author', on_delete=models.SET_NULL, null=True)
 
     book_author = models.CharField('Author', max_length=20,
@@ -33,7 +30,7 @@ class Quote(models.Model):
 
     date_posted = models.DateTimeField(auto_now_add=True)
 
-    # rating = RatingField(can_change_vote=True)
+    likes = models.PositiveIntegerField(default=0)
 
     def get_comments(self):
         return self.comments.filter(parent=None).filter(active=True)
