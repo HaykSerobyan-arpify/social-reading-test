@@ -1,8 +1,8 @@
 import uuid
-#from updown.fields import RatingField
+# from updown.fields import RatingField
 from django.core.validators import MinLengthValidator, validate_image_file_extension, FileExtensionValidator
 from django.db import models
-from django.urls import reverse
+# from django.urls import reverse
 from config.validators import CharValidator
 from register.models import User
 
