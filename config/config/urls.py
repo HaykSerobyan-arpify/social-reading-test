@@ -44,8 +44,8 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('', coming_soon, name='coming_soon'),
-    path('social_auth/', include(('social_auth.urls', 'social_auth'),
-                                 namespace="social_auth")),
+    # path('social_auth/', include(('social_auth.urls', 'social_auth'),
+    #                             namespace="social_auth")),
     path('admin/', admin.site.urls),
     path('categories/', include('categories.urls')),
     path('quotes/', include('quotes.urls')),
