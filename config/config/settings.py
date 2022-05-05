@@ -58,7 +58,7 @@ INSTALLED_APPS = [
     # 'allauth.socialaccount.providers.google',
     # 'social_django',
     # 'updown',
-    # 'social_auth',
+    #'social_auth',
 ]
 
 MIDDLEWARE = [
@@ -187,7 +187,9 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "hayk.serobyan.89@gmail.com"
 # EMAIL_HOST_PASSWORD = "xttblrmdltkhysfi"
-EMAIL_HOST_PASSWORD = 'kdybuojkkdancjbm'
+# EMAIL_HOST_PASSWORD = 'kdybuojkkdancjbm'
+# social pass
+EMAIL_HOST_PASSWORD = 'thxopkdcpafjuifm'
 EMAIL_USE_TLS = True
 
 DJOSER = {
