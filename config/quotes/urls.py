@@ -12,6 +12,6 @@ urlpatterns = router.urls
 
 urlpatterns += format_suffix_patterns([
     path("quote/", quotes.views.QuotesViewSet.as_view({'get': 'list'})),
-    path("quote/<int:pk>/", quotes.views.QuotesViewSet.as_view({'get': 'retrieve'})),
-    #path("comment/", quotes.views.CommentCreateViewSet.as_view({'post': 'create'})),
+    # path("quote/<int:pk>/", quotes.views.QuotesViewSet.as_view({'get': 'retrieve'})),
+    # path("comment/", quotes.views.CommentCreateViewSet.as_view({'post': 'create'})),
 ])
