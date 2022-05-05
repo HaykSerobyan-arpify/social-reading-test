@@ -44,8 +44,8 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('', coming_soon, name='coming_soon'),
-    # path('social_auth/', include(('social_auth.urls', 'social_auth'),
-    #                             namespace="social_auth")),
+    path('social_auth/', include(('social_auth.urls', 'social_auth'),
+                                 namespace="social_auth")),
     path('admin/', admin.site.urls),
     path('categories/', include('categories.urls')),
     path('quotes/', include('quotes.urls')),
@@ -58,7 +58,7 @@ urlpatterns = [
     # path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     # path('api-auth/', include('rest_framework.urls')),
     re_path(
-        r"^docs/$",
+        r"docs/$",
         schema_view.with_ui("swagger", cache_timeout=0),
         name="schema-swagger-ui",
     ),
