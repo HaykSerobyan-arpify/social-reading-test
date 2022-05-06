@@ -24,8 +24,8 @@ class Quote(models.Model):
                                      validators=[MinLengthValidator(limit_value=2, message=None),
                                                  CharValidator])
 
-    height = models.IntegerField()
-    width = models.IntegerField()
+    height = models.IntegerField(default=0)
+    width = models.IntegerField(default=0)
     quote_file = models.ImageField('Quote', upload_to='upload',
                                    validators=[validate_image_file_extension,
                                                FileExtensionValidator(allowed_extensions=['jpeg', 'png', 'jpg'])],
