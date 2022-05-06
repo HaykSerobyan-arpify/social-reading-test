@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'register',
     'corsheaders',
     'django_filters',
+    'social_django',
     # 'allauth',
     # 'allauth.account',
     # 'allauth.socialaccount',
@@ -71,7 +72,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
-
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -286,8 +286,8 @@ SITE_ID = 1
 
 DATETIME_FORMAT = '%d/%m/%Y %H:%M:%S'
 
-GOOGLE_CLIENT_ID = '1099219627851-mrn247ir3c34krc1j5baismnm9vfa0en.apps.googleusercontent.com'
-GOOGLE_CLIENT_SECRET = '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'
+GOOGLE_CLIENT_ID = '725774715302-u7a7bgj1tm2hrdggirs0qume24ndtup8.apps.googleusercontent.com'
+GOOGLE_CLIENT_SECRET = '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'
 
 SWAGGER_SETTINGS = {
     'DEFAULT_FIELD_INSPECTORS': [
@@ -301,3 +301,7 @@ SWAGGER_SETTINGS = {
         'drf_yasg.inspectors.StringDefaultFieldInspector',
     ],
 }
+
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = 'home'
