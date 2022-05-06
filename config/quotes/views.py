@@ -21,7 +21,9 @@ class QuoteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Quote
-        fields = ('id', 'date_posted', 'likes', 'book_author', 'book_title', 'book_category', 'quote_file', 'author')
+        fields = ('id', 'date_posted', 'likes', 'height',
+                  'width ', 'book_author', 'book_title',
+                  'book_category', 'quote_file', 'author')
 
 
 class QuotesViewSet(viewsets.ModelViewSet):
