@@ -22,7 +22,7 @@ class QuoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Quote
         fields = ('id', 'date_posted', 'likes', 'height',
-                  'width ', 'book_author', 'book_title',
+                  'width', 'book_author', 'book_title',
                   'book_category', 'quote_file', 'author')
 
 
