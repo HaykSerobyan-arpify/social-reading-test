@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-import config.settings
+from config.settings import GOOGLE_CLIENT_ID
 from . import google, facebook
 from .register import register_social_user
 from rest_framework.exceptions import AuthenticationFailed
@@ -43,7 +43,7 @@ class GoogleSocialAuthSerializer(serializers.Serializer):
                 'The token is invalid or expired. Please login again.'
             )
 
-        if user_data['aud'] != config.settings.GOOGLE_CLIENT_ID:
+        if user_data['aud'] != GOOGLE_CLIENT_ID:
 
             raise AuthenticationFailed('oops, who are you?')
 

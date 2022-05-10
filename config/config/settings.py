@@ -191,6 +191,7 @@ EMAIL_HOST_USER = "hayk.serobyan.89@gmail.com"
 # social pass
 EMAIL_HOST_PASSWORD = 'thxopkdcpafjuifm'
 EMAIL_USE_TLS = True
+fail_silently = True
 
 DJOSER = {
     "LOGIN_FIELD": "email",
@@ -291,7 +292,8 @@ DATETIME_FORMAT = 'd/m/Y H:i:s'
 SOCIAL_AUTH_FACEBOOK_KEY = '253977466914818'
 SOCIAL_AUTH_FACEBOOK_SECRET = '086c847b8f8a046d9149bf3cac6196a4'
 
-GOOGLE_CLIENT_ID = '725774715302-u7a7bgj1tm2hrdggirs0qume24ndtup8.apps.googleusercontent.com'
+# GOOGLE_CLIENT_ID = '725774715302-u7a7bgj1tm2hrdggirs0qume24ndtup8.apps.googleusercontent.com'
+GOOGLE_CLIENT_ID = "157706975933-5mp07f2obqtjbrtbf3amqvts8s7q8puf.apps.googleusercontent.com"
 GOOGLE_CLIENT_SECRET = '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'
 # SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
 #     'https://www.googleapis.com/auth/userinfo.email',
