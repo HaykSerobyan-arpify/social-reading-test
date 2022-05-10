@@ -35,19 +35,24 @@ class Quote(models.Model):
 
     date_posted = models.DateTimeField(auto_now_add=True)
 
-    likes = models.PositiveIntegerField(default=0)
+    likes = models.ManyToManyField(User, related_name='quote_likes', blank=True)
 
     def get_comments(self):
         return self.comments.filter(parent=None).filter(active=True)
 
+    def total_likes(self):
+        return self.likes.count()
+
     def __str__(self):
-        return f'Author: {self.book_author}\n' \
-               f'Title: {self.book_title}\n' \
-               f'Category: {self.book_category}\n'
+        return f'Author: {self.book_author} | ' \
+               f'Title: {self.book_title} | ' \
+               f'Category: {self.book_category} | ' \
+               f'User: {self.author}'
 
 
 class Comment(models.Model):
     post = models.ForeignKey(Quote, on_delete=models.CASCADE, related_name="comments")
+    user = models.ForeignKey(User, editable=False, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     email = models.EmailField()
     parent = models.ForeignKey("self", null=True, blank=True, on_delete=models.CASCADE)

@@ -18,17 +18,12 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from config.settings import MEDIA_ROOT, STATIC_ROOT, STATIC_URL
 from django.views.static import serve
-from quotes.views import coming_soon
+from quotes.views import coming_soon, like_quote
 
 # DRF YASG
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-    TokenVerifyView,
-)
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -47,17 +42,15 @@ urlpatterns = [
     path('social_auth/', include(('social_auth.urls', 'social_auth'),
                                  namespace="social_auth")),
     path('admin/', admin.site.urls),
+    re_path(r'like/<uuid:id>', like_quote, name='like_quote'),
     path('categories/', include('categories.urls')),
     path('quotes/', include('quotes.urls')),
     path('register/', include('register.urls')),
     path('auth/', include("djoser.urls")),
     path('auth/djoser/', include('djoser.urls.jwt')),
+    re_path(r'^auth/', include('djoser.social.urls')),
     re_path(r'^auth/', include('djoser.urls.authtoken')),
     path('oauth/', include('social_django.urls', namespace='social')),
-    # path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    # path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    # path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
-    # path('api-auth/', include('rest_framework.urls')),
     re_path(
         r"docs/$",
         schema_view.with_ui("swagger", cache_timeout=0),

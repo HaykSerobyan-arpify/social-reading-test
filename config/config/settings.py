@@ -107,9 +107,9 @@ DATABASES = {
         'ENGINE': 'djongo',
         'NAME': 'social_reading_db',
         'ENFORCE_SCHEMA': False,
-         'CLIENT': {
-             'host': MONGO_URI
-         }
+        'CLIENT': {
+            'host': MONGO_URI
+        }
     }
 }
 
@@ -170,8 +170,9 @@ CSRF_TRUSTED_ORIGINS = ['http://www.socialreading.xyz', 'https://www.socialreadi
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        #'rest_framework.authentication.TokenAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # 'oauth2_provider.contrib.rest_framework.OAuth2Authentication'
     ),
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
@@ -280,14 +281,24 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'social_core.backends.google.GoogleOAuth2',
     'social_core.backends.facebook.FacebookOAuth2',
+    # 'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 SITE_ID = 1
 
-DATETIME_FORMAT = '%d/%m/%Y %H:%M:%S'
+DATETIME_FORMAT = 'd/m/Y H:i:s'
+
+SOCIAL_AUTH_FACEBOOK_KEY = '253977466914818'
+SOCIAL_AUTH_FACEBOOK_SECRET = '086c847b8f8a046d9149bf3cac6196a4'
 
 GOOGLE_CLIENT_ID = '725774715302-u7a7bgj1tm2hrdggirs0qume24ndtup8.apps.googleusercontent.com'
 GOOGLE_CLIENT_SECRET = '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'
+# SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
+#     'https://www.googleapis.com/auth/userinfo.email',
+#     'https://www.googleapis.com/auth/userinfo.profile',
+#     'openid'
+# ]
+# SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = ['first_name', 'last_name']
 
 SWAGGER_SETTINGS = {
     'DEFAULT_FIELD_INSPECTORS': [
@@ -302,6 +313,17 @@ SWAGGER_SETTINGS = {
     ],
 }
 
-LOGIN_URL = 'login'
-LOGOUT_URL = 'logout'
-LOGIN_REDIRECT_URL = 'home'
+# SOCIAL_AUTH_URL_NAMESPACE = 'social'
+# LOGIN_URL = '/admin/login/'
+
+# LOGIN_REDIRECT_URL = 'https://blooming-forest-92426.herokuapp.com/'
+# LOGOUT_REDIRECT_URL = 'https://blooming-forest-92426.herokuapp.com/'
+
+# ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+# ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_USERNAME_REQUIRED = False
+# ACCOUNT_AUTHENTICATION_METHOD = 'email'
+
+# LOGIN_URL = 'login'
+# LOGOUT_URL = 'logout'
+# LOGIN_REDIRECT_URL = 'home'

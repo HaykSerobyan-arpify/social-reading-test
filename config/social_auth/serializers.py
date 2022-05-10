@@ -3,7 +3,6 @@ from rest_framework import serializers
 import config.settings
 from . import google, facebook
 from .register import register_social_user
-import os
 from rest_framework.exceptions import AuthenticationFailed
 
 

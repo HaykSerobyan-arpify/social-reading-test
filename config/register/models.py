@@ -56,17 +56,17 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['first_name', 'last_name', 'avatar']
 
     def get_full_name(self):
-        return f"{self.first_name}{self.last_name}"
+        return f"{self.first_name} {self.last_name}"
 
     def get_short_name(self):
         return self.first_name
 
     def __str__(self):
-        return self.email
+        return f'{self.email} - {self.get_full_name()}'
 
-    """def tokens(self):
+    def tokens(self):
         refresh = RefreshToken.for_user(self)
         return {
             'refresh': str(refresh),
             'access': str(refresh.access_token)
-        }"""
+        }

@@ -5,6 +5,7 @@ from .models import Category
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
+        # verbose_name_plural = 'Categories'
         model = Category
         fields = ('id', 'name',)
 

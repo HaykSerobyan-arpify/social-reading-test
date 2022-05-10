@@ -1,6 +1,9 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 from rest_framework import serializers
 from rest_framework import viewsets
+from rest_framework.generics import get_object_or_404
 from quotes.models import Quote
 from categories.models import Category
 import pymongo
@@ -9,6 +12,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from quotes.service import get_client_ip, QuoteFilter
 from config.settings import DATETIME_FORMAT
 from register.views import UserSerializer
+from django.views.generic.base import View
 
 
 def coming_soon(request):
@@ -19,11 +23,13 @@ class QuoteSerializer(serializers.ModelSerializer):
     date_posted = serializers.DateTimeField(read_only=True, format=DATETIME_FORMAT, input_formats=None)
     author = UserSerializer(read_only=True)
 
+
     class Meta:
         model = Quote
         fields = ('id', 'date_posted', 'likes', 'height',
                   'width', 'book_author', 'book_title',
                   'book_category', 'quote_file', 'author')
+        read_only_fields = ['likes', 'height', 'width']
 
 
 class QuotesViewSet(viewsets.ModelViewSet):
@@ -39,3 +45,20 @@ class QuotesViewSet(viewsets.ModelViewSet):
         if db.categories_category.find_one({"name": category}) is None:
             Category.objects.create(name=category)
         print(self.request.user)
+
+
+class QuotesViewHTML(View):
+
+    def get(self, request):
+        quotes = Quote.objects.all()
+        return render(request, 'quotes/quote_list.html', {'quote_list': quotes})
+
+
+def like_quote(request):
+    quote = get_object_or_404(Quote, id=request.POST.get('quote_id'))
+    if quote.likes.filter(id=request.user.id).exists():
+        print('success')
+    else:
+        quote.likes.add(request.user)
+
+    return HttpResponseRedirect(reverse('coming_soon'))
