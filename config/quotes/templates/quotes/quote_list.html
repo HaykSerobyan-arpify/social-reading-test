@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Quotes</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/quote_list.css' %}"/>
-<script type="text/javascript" language="Javascript" src="{% static 'js/quote_list.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/quote.scss' %}"/>
 </head>
 <body>
 {% block content%}
@@ -13,7 +12,7 @@
     <div class="gallery" id="gallery">
         <div class="gallery-item">
             {% for quote in quote_list %}
-            <div class="content"><img src="{{MEDIA_URL}}{{quote.quote_file.url}}" alt="???" width="250" height="250"></div>
+            <div class="content"><img src="{{MEDIA_URL}}{{quote.quote_file.url}}" alt="???"></div>
             <p>{{ quote.book_title }}</p>
             <p>{{ quote.book_category }}</p>
             <p>{{ quote.date_posted }}</p>

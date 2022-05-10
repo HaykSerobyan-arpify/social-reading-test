@@ -57,7 +57,9 @@ class QuotesViewHTML(View):
 def like_quote(request):
     quote = get_object_or_404(Quote, id=request.POST.get('quote_id'))
     if quote.likes.filter(id=request.user.id).exists():
-        print('success')
+        # print('success')
+        pass
+
     else:
         quote.likes.add(request.user)
 
