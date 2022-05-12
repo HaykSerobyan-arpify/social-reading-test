@@ -24,6 +24,7 @@ from quotes.views import coming_soon, like_quote
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from django.contrib.auth import views as auth_views
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -48,9 +49,9 @@ urlpatterns = [
     path('register/', include('register.urls')),
     path('auth/', include("djoser.urls")),
     path('auth/djoser/', include('djoser.urls.jwt')),
-    re_path(r'^auth/', include('djoser.social.urls')),
+    # re_path(r'^auth/', include('djoser.social.urls')),
     re_path(r'^auth/', include('djoser.urls.authtoken')),
-    path('oauth/', include('social_django.urls', namespace='social')),
+    # path('oauth/', include('social_django.urls', namespace='social')),
     re_path(
         r"docs/$",
         schema_view.with_ui("swagger", cache_timeout=0),

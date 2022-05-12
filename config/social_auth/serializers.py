@@ -22,7 +22,7 @@ class FacebookSocialAuthSerializer(serializers.Serializer):
                 provider=provider,
                 user_id=user_id,
                 email=email,
-                name=name
+                first_name=name,
             )
         except Exception as identifier:
 
@@ -38,19 +38,38 @@ class GoogleSocialAuthSerializer(serializers.Serializer):
         user_data = google.Google.validate(auth_token)
         try:
             user_data['sub']
+
         except:
             raise serializers.ValidationError(
                 'The token is invalid or expired. Please login again.'
             )
 
         if user_data['aud'] != GOOGLE_CLIENT_ID:
-
             raise AuthenticationFailed('oops, who are you?')
 
         user_id = user_data['sub']
         email = user_data['email']
-        name = user_data['name']
+        first_name = user_data['given_name']
+        last_name = user_data['family_name']
+        avatar = user_data['picture']
+
         provider = 'google'
+        # print(user_data)
+        a = {'iss': 'accounts.google.com',
+             'azp': '157706975933-5mp07f2obqtjbrtbf3amqvts8s7q8puf.apps.googleusercontent.com',
+             'aud': '157706975933-5mp07f2obqtjbrtbf3amqvts8s7q8puf.apps.googleusercontent.com',
+             'sub': '117331089545997807598',
+             'email': 'manchess20@gmail.com',
+             'email_verified': True,
+             'at_hash': 'Sld138ew7Wt8B7HJd5ERoA',
+             'name': 'Tigran Aghajanyan',
+             'picture': 'https://lh3.googleusercontent.com/a-/AOh14GiM1p5t-DQStkpwzTWMN5QwyoRrZk-MIF-uW3cfVA=s96-c',
+             'given_name': 'Tigran',
+             'family_name': 'Aghajanyan',
+             'locale': 'ru',
+             'iat': 1652278589,
+             'exp': 1652282189,
+             'jti': 'ca9a5a4b1841c6761721345fca31e9bae1808fd4'}
 
         return register_social_user(
-            provider=provider, user_id=user_id, email=email, name=name)
+            provider=provider, user_id=user_id, email=email, first_name=first_name, last_name=last_name, avatar=avatar)

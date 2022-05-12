@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     # 'allauth.socialaccount.providers.google',
     # 'social_django',
     'social_auth',
+    # 'oauth2_provider',
 ]
 
 MIDDLEWARE = [
@@ -107,9 +108,9 @@ DATABASES = {
         'ENGINE': 'djongo',
         'NAME': 'social_reading_db',
         'ENFORCE_SCHEMA': False,
-        'CLIENT': {
-            'host': MONGO_URI
-        }
+        # 'CLIENT': {
+        #     'host': MONGO_URI
+        # }
     }
 }
 
@@ -186,10 +187,9 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "hayk.serobyan.89@gmail.com"
-# EMAIL_HOST_PASSWORD = "xttblrmdltkhysfi"
-# EMAIL_HOST_PASSWORD = 'kdybuojkkdancjbm'
-# social pass
-EMAIL_HOST_PASSWORD = 'thxopkdcpafjuifm'
+EMAIL_HOST_PASSWORD = "vytpzzxemxfjwayj"
+# EMAIL_HOST_PASSWORD = 'thxopkdcpafjuifm'    # socialreading.xyz
+
 EMAIL_USE_TLS = True
 fail_silently = True
 
@@ -211,6 +211,14 @@ DJOSER = {
         "your redirect url",
         "your redirect url",
     ],
+    'EMAIL': {
+        'activation': 'djoser.email.ActivationEmail',
+        'confirmation': 'djoser.email.ConfirmationEmail',
+        'password_reset': 'djoser.email.PasswordResetEmail',
+        'password_changed_confirmation': 'djoser.email.PasswordChangedConfirmationEmail',
+        'username_changed_confirmation': 'djoser.email.UsernameChangedConfirmationEmail',
+        'username_reset': 'djoser.email.UsernameResetEmail',
+    }
 }
 
 SIMPLE_JWT = {
@@ -218,7 +226,7 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': False,
-    'UPDATE_LAST_LOGIN': False,
+    'UPDATE_LAST_LOGIN': True,
 
     'ALGORITHM': 'HS256',
     'SIGNING_KEY': SECRET_KEY,
@@ -276,12 +284,28 @@ SOCIALACCOUNT_PROVIDERS = {
         'VERIFIED_EMAIL': False,
         'VERSION': 'v13.0',
     },
+    'linkedin': {
+        'SCOPE': [
+            'r_basicprofile',
+            'r_emailaddress'
+        ],
+        'PROFILE_FIELDS': [
+            'id',
+            'first-name',
+            'last-name',
+            'email-address',
+            'picture-url',
+            'public-profile-url',
+        ]
+    }
 }
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'social_core.backends.google.GoogleOAuth2',
     'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.instagram.InstagramOAuth2',
+    'social_core.backends.linkedin.LinkedinOAuth2',
     # 'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
@@ -300,7 +324,11 @@ GOOGLE_CLIENT_SECRET = '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'
 #     'https://www.googleapis.com/auth/userinfo.profile',
 #     'openid'
 # ]
-# SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = ['first_name', 'last_name']
+SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = ['first_name', 'last_name']
+
+SOCIAL_AUTH_INSTAGRAM_KEY = '2021347461409638'  # Client ID
+SOCIAL_AUTH_INSTAGRAM_SECRET = '637560d268b3e70f3eac783f09533caf'  # Client SECRET
+SOCIAL_AUTH_INSTAGRAM_EXTRA_DATA = [('user', 'user'), ]
 
 SWAGGER_SETTINGS = {
     'DEFAULT_FIELD_INSPECTORS': [
@@ -327,5 +355,6 @@ SWAGGER_SETTINGS = {
 # ACCOUNT_AUTHENTICATION_METHOD = 'email'
 
 # LOGIN_URL = 'login'
-# LOGOUT_URL = 'logout'
 # LOGIN_REDIRECT_URL = 'home'
+# LOGOUT_URL = 'logout'
+# LOGOUT_REDIRECT_URL = 'login'

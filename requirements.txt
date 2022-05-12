@@ -7,12 +7,16 @@ coreapi==2.3.3
 coreschema==0.0.4
 cryptography==36.0.2
 defusedxml==0.7.1
+Deprecated==1.2.13
+dj-rest-auth==2.2.4
 Django==3.2.10
 django-allauth==0.50.0
 django-cors-headers==3.11.0
 django-filter==21.1
 django-ipware==4.0.2
+django-oauth-toolkit==2.0.0
 django-rest-auth==0.9.5
+django-sass==1.1.0
 django-templated-mail==1.1.1
 django-updown==1.1.0
 django-updown-ratings==1.0.1
@@ -36,6 +40,8 @@ idna==3.3
 inflection==0.5.1
 itypes==1.2.0
 Jinja2==3.1.1
+jwcrypto==1.2
+libsass==0.21.0
 MarkupSafe==2.1.1
 mongoengine==0.24.1
 oauthlib==3.2.0
@@ -57,7 +63,10 @@ ruamel.yaml==0.17.21
 ruamel.yaml.clib==0.2.6
 six==1.16.0
 social-auth-app-django==4.0.0
+social-auth-app-django-mongoengine==1.0.0
 social-auth-core==4.2.0
+social-auth-storage-mongoengine==1.0.1
 sqlparse==0.2.4
 uritemplate==4.1.1
 urllib3==1.26.9
+wrapt==1.14.1
