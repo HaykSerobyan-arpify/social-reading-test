@@ -24,7 +24,7 @@ def coming_soon(request):
 class QuoteSerializer(serializers.ModelSerializer):
     date_posted = serializers.DateTimeField(read_only=True, format=DATETIME_FORMAT, input_formats=None)
     author = UserSerializer(read_only=True)
-    ordering = ('created',)
+
 
     class Meta:
         model = Quote
@@ -49,7 +49,10 @@ class QuotesViewSet(viewsets.ModelViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     def perform_create(self, serializer):
-        serializer.save(author=self.request.user, quote_text='Some Text')
+        try:
+            serializer.save(author=self.request.user, quote_text='Some Text')
+        except ValueError:
+            raise ValueError("User must be authorised")
 
     def get_success_headers(self, data):
         client = pymongo.MongoClient(MONGO_URI)

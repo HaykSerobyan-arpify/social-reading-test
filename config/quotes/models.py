@@ -11,7 +11,7 @@ class Quote(models.Model):
         default=uuid.uuid4,
         editable=False)
 
-    author = models.ForeignKey(User, related_name='author', on_delete=models.CASCADE)
+    author = models.ForeignKey(User, related_name='author', on_delete=models.CASCADE, null=True)
 
     book_author = models.CharField('Author', max_length=20,
                                    validators=[MinLengthValidator(limit_value=2, message=None), ])
