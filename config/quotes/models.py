@@ -41,7 +41,7 @@ class Quote(models.Model):
 
     date_posted = models.DateTimeField(auto_now_add=True)
 
-    # likes = models.ManyToManyField(User, related_name='quote_likes', blank=True)
+    likes = models.ManyToManyField(User, related_name='quote_likes', blank=True)
 
     def get_comments(self):
         return self.comments.filter(parent=None).filter(active=True)
