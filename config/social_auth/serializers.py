@@ -51,10 +51,9 @@ class GoogleSocialAuthSerializer(serializers.Serializer):
         email = user_data['email']
         first_name = user_data['given_name']
         last_name = user_data['family_name']
-        avatar = user_data['picture']
+        avatar_google = user_data['picture']
 
         provider = 'google'
-        # print(user_data)
         a = {'iss': 'accounts.google.com',
              'azp': '157706975933-5mp07f2obqtjbrtbf3amqvts8s7q8puf.apps.googleusercontent.com',
              'aud': '157706975933-5mp07f2obqtjbrtbf3amqvts8s7q8puf.apps.googleusercontent.com',
@@ -72,4 +71,6 @@ class GoogleSocialAuthSerializer(serializers.Serializer):
              'jti': 'ca9a5a4b1841c6761721345fca31e9bae1808fd4'}
 
         return register_social_user(
-            provider=provider, user_id=user_id, email=email, first_name=first_name, last_name=last_name, avatar=avatar)
+            provider=provider, user_id=user_id,
+            email=email, first_name=first_name,
+            last_name=last_name, avatar=avatar_google)
