@@ -11,18 +11,15 @@ class Quote(models.Model):
         default=uuid.uuid4,
         editable=False)
 
-    author = models.ForeignKey(User, related_name='author', on_delete=models.SET_NULL, null=True)
+    author = models.ForeignKey(User, related_name='author', on_delete=models.CASCADE)
 
     book_author = models.CharField('Author', max_length=20,
-                                   validators=[MinLengthValidator(limit_value=2, message=None),
-                                               CharValidator])
+                                   validators=[MinLengthValidator(limit_value=2, message=None), ])
     book_title = models.CharField('Title', max_length=20,
-                                  validators=[MinLengthValidator(limit_value=2, message=None),
-                                              CharValidator])
+                                  validators=[MinLengthValidator(limit_value=2, message=None), ])
 
     book_category = models.CharField('Category', max_length=20,
-                                     validators=[MinLengthValidator(limit_value=2, message=None),
-                                                 CharValidator])
+                                     validators=[MinLengthValidator(limit_value=2, message=None), ])
 
     height = models.IntegerField(default=0)
     width = models.IntegerField(default=0)
@@ -32,6 +29,15 @@ class Quote(models.Model):
                                    height_field='height',
                                    width_field='width'
                                    )
+
+    quote_text = models.TextField('Quote text', null=True)
+
+    text_background = models.ImageField('Quote text background', upload_to='upload',
+                                        validators=[validate_image_file_extension,
+                                                    FileExtensionValidator(allowed_extensions=['jpeg', 'png', 'jpg'])],
+                                        null=True)
+
+    save_users = models.ManyToManyField(User, related_name='save', blank=True)
 
     date_posted = models.DateTimeField(auto_now_add=True)
 

@@ -1,9 +1,11 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from rest_framework import serializers
+from rest_framework import serializers, status
 from rest_framework import viewsets
 from rest_framework.generics import get_object_or_404
+from rest_framework.response import Response
+from django.contrib.auth.models import AnonymousUser
 from quotes.models import Quote
 from categories.models import Category
 import pymongo
@@ -22,13 +24,14 @@ def coming_soon(request):
 class QuoteSerializer(serializers.ModelSerializer):
     date_posted = serializers.DateTimeField(read_only=True, format=DATETIME_FORMAT, input_formats=None)
     author = UserSerializer(read_only=True)
-
+    ordering = ('created',)
 
     class Meta:
         model = Quote
         fields = ('id', 'date_posted', 'likes', 'height',
                   'width', 'book_author', 'book_title',
-                  'book_category', 'quote_file', 'author')
+                  'book_category', 'quote_file', 'author', 'quote_text',
+                  'text_background', 'save_users')
         read_only_fields = ['likes', 'height', 'width']
 
 
@@ -38,13 +41,25 @@ class QuotesViewSet(viewsets.ModelViewSet):
     filter_backends = (DjangoFilterBackend,)
     filterset_class = QuoteFilter
 
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+    def perform_create(self, serializer):
+        try:
+            serializer.save(author=self.request.user, quote_text='Some Text')
+        except ValueError:
+            raise ValueError("User must be authorised")
+
     def get_success_headers(self, data):
         client = pymongo.MongoClient(MONGO_URI)
         db = client.social_reading_db
         category = data['book_category'].capitalize()
         if db.categories_category.find_one({"name": category}) is None:
             Category.objects.create(name=category)
-        print(self.request.user)
 
 
 class QuotesViewHTML(View):
@@ -57,10 +72,7 @@ class QuotesViewHTML(View):
 def like_quote(request):
     quote = get_object_or_404(Quote, id=request.POST.get('quote_id'))
     if quote.likes.filter(id=request.user.id).exists():
-        # print('success')
         pass
-
     else:
         quote.likes.add(request.user)
-
     return HttpResponseRedirect(reverse('coming_soon'))

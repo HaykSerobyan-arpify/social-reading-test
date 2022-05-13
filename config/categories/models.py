@@ -11,8 +11,7 @@ class Category(models.Model):
         default=uuid.uuid4,
         editable=False)
     name = models.CharField('category', max_length=15,
-                            validators=[MinLengthValidator(limit_value=2, message=None),
-                                        CharValidator], unique=True)
+                            validators=[MinLengthValidator(limit_value=2, message=None), ], unique=True)
 
     # add unique category and ignore case
     def save(self, *args, **kwargs):
