@@ -42,7 +42,7 @@ class User(AbstractBaseUser, PermissionsMixin):
                                validators=[validate_image_file_extension,
                                            FileExtensionValidator(allowed_extensions=['jpeg', 'png', 'jpg'])],
                                blank=True)
-    avatar_google = models.SlugField(max_length=255, null=True)
+    avatar_google = models.SlugField(null=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=False)

@@ -37,11 +37,11 @@ class Quote(models.Model):
                                                     FileExtensionValidator(allowed_extensions=['jpeg', 'png', 'jpg'])],
                                         null=True)
 
-    save_users = models.ManyToManyField(User, related_name='save', blank=True)
+    # save_users = models.ManyToManyField(User, related_name='save', blank=True)
 
     date_posted = models.DateTimeField(auto_now_add=True)
 
-    likes = models.ManyToManyField(User, related_name='quote_likes', blank=True)
+    # likes = models.ManyToManyField(User, related_name='quote_likes', blank=True)
 
     def get_comments(self):
         return self.comments.filter(parent=None).filter(active=True)
