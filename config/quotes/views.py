@@ -49,7 +49,7 @@ class QuotesViewSet(viewsets.ModelViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     def perform_create(self, serializer):
-            serializer.save(author=self.request.user, quote_text='Some Text')
+        serializer.save(author=self.request.user, quote_text='Some Text')
 
 
     def get_success_headers(self, data):
