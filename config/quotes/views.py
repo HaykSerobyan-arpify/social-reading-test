@@ -31,7 +31,7 @@ class QuoteSerializer(serializers.ModelSerializer):
         fields = ('id', 'date_posted', 'likes', 'height',
                   'width', 'book_author', 'book_title',
                   'book_category', 'quote_file', 'author', 'quote_text',
-                  'text_background', 'save_users')
+                  'text_background',)
         read_only_fields = ['likes', 'height', 'width']
 
 
