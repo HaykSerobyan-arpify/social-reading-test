@@ -16,19 +16,21 @@ class FacebookSocialAuthSerializer(serializers.Serializer):
         try:
             user_id = user_data['id']
             email = user_data['email']
-            name = user_data['name']
+            first_name = user_data['first_name']
+            last_name = user_data['last_name']
+            avatar = user_data['picture']['data']['url']
             provider = 'facebook'
+
             return register_social_user(
                 provider=provider,
                 user_id=user_id,
                 email=email,
-                first_name=name,
+                first_name=first_name,
+                last_name=last_name,
+                avatar=avatar,
             )
         except Exception as identifier:
-
-            raise serializers.ValidationError(
-                'The token  is invalid or expired. Please login again.'
-            )
+            raise serializers.ValidationError('The token  is invalid or expired. Please login again.')
 
 
 class GoogleSocialAuthSerializer(serializers.Serializer):

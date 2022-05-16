@@ -1,5 +1,7 @@
 from django_filters import rest_framework as filters
 from quotes.models import Quote
+import pytesseract
+from PIL import Image
 
 
 def get_client_ip(request):
@@ -11,15 +13,24 @@ def get_client_ip(request):
     return ip
 
 
+def get_text_from_picture(image_file):
+
+    image = Image.open(image_file)
+    custom_config = r'--oem 3 --psm 6'
+    text = pytesseract.image_to_string(image, config=custom_config, lang='eng+rus+hye')
+    return text
+
+
 class CharFilterInFilter(filters.BaseInFilter, filters.CharFilter):
     pass
 
 
 class QuoteFilter(filters.FilterSet):
-    email = CharFilterInFilter(field_name='user_email', lookup_expr='in')
+    author_id = CharFilterInFilter(field_name='author', lookup_expr='in')
+    save = CharFilterInFilter(field_name='save_users', lookup_expr='in')
     category = CharFilterInFilter(field_name='book_category', lookup_expr='in')
 
     class META:
         model = Quote
-        fields = ('user_email', 'book_category', )
+        fields = ('author', 'book_category', 'save_users')
 

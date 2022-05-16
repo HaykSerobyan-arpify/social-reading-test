@@ -1,19 +1,17 @@
+from django.core.exceptions import FieldError
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from rest_framework import serializers, status
+from rest_framework import serializers
 from rest_framework import viewsets
 from rest_framework.generics import get_object_or_404
-from rest_framework.response import Response
-from django.contrib.auth.models import AnonymousUser
 from quotes.models import Quote
 from categories.models import Category
 import pymongo
 from config.settings import MONGO_URI
 from django_filters.rest_framework import DjangoFilterBackend
-from quotes.service import get_client_ip, QuoteFilter
+from quotes.service import get_client_ip, QuoteFilter, get_text_from_picture
 from config.settings import DATETIME_FORMAT
-from register.views import UserSerializer
 from django.views.generic.base import View
 
 
@@ -23,34 +21,41 @@ def coming_soon(request):
 
 class QuoteSerializer(serializers.ModelSerializer):
     date_posted = serializers.DateTimeField(read_only=True, format=DATETIME_FORMAT, input_formats=None)
-    author = UserSerializer(read_only=True)
 
+    # author = UserSerializer(read_only=True)
 
     class Meta:
         model = Quote
-        fields = ('id', 'date_posted', 'likes', 'height',
-                  'width', 'book_author', 'book_title',
-                  'book_category', 'quote_file', 'author', 'quote_text',
-                  'text_background',)
-        read_only_fields = ['likes', 'height', 'width']
+        fields = ('id', 'author', 'date_posted',
+                  'book_author', 'quote_title', 'book_category',
+                  'quote_file', 'height', 'width', 'quote_text',
+                  'text_background', 'likes', 'save_users')
 
 
 class QuotesViewSet(viewsets.ModelViewSet):
     serializer_class = QuoteSerializer
-    queryset = Quote.objects.all()
+    queryset = Quote.objects.all().order_by('-date_posted')
     filter_backends = (DjangoFilterBackend,)
     filterset_class = QuoteFilter
 
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+    # def create(self, request, *args, **kwargs):
+    #     serializer = self.get_serializer(data=request.data)
+    #     serializer.is_valid(raise_exception=True)
+    #     self.perform_create(serializer)
+    #     headers = self.get_success_headers(serializer.data)
+    #     return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     def perform_create(self, serializer):
-        serializer.save(author=self.request.user, quote_text='Some Text')
 
+        # text recognition
+        quote_text = get_text_from_picture(self.request.data.get('quote_file'))
+        try:
+            if self.request.data.get('author') == '':
+                serializer.save(author=self.request.user, quote_text=quote_text)
+            else:
+                serializer.save(quote_text=quote_text)
+        except ValueError:
+            raise FieldError("User must be authorised")
 
     def get_success_headers(self, data):
         client = pymongo.MongoClient(MONGO_URI)

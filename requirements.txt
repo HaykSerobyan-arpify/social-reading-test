@@ -70,3 +70,6 @@ sqlparse==0.2.4
 uritemplate==4.1.1
 urllib3==1.26.9
 wrapt==1.14.1
+
+opencv-python~=4.5.5.64
+pytesseract~=0.3.9

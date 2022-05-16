@@ -1,3 +1,5 @@
+import json
+
 import facebook
 
 
@@ -13,7 +15,7 @@ class Facebook:
         """
         try:
             graph = facebook.GraphAPI(access_token=auth_token)
-            profile = graph.request('/me?fields=name,email')
+            profile = graph.get_object('me', fields='first_name,last_name,location,link,email,picture,hometown')
             return profile
         except:
             return "The token is invalid or expired."

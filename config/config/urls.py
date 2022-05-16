@@ -48,10 +48,8 @@ urlpatterns = [
     path('quotes/', include('quotes.urls')),
     path('register/', include('register.urls')),
     path('auth/', include("djoser.urls")),
-    path('auth/djoser/', include('djoser.urls.jwt')),
-    # re_path(r'^auth/', include('djoser.social.urls')),
-    re_path(r'^auth/', include('djoser.urls.authtoken')),
-    # path('oauth/', include('social_django.urls', namespace='social')),
+    path('auth/', include('djoser.urls.jwt')),
+    # re_path(r'^auth/', include('djoser.urls.authtoken')),
     re_path(
         r"docs/$",
         schema_view.with_ui("swagger", cache_timeout=0),

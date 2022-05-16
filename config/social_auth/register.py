@@ -1,20 +1,7 @@
 from django.contrib.auth import authenticate
-from django.core import serializers
-
 from register.models import User
-from register.views import UserSerializer
 import os
-import random
 from rest_framework.exceptions import AuthenticationFailed
-
-
-def generate_username(name):
-    username = "".join(name.split(' ')).lower()
-    if not User.objects.filter(username=username).exists():
-        return username
-    else:
-        random_username = username + str(random.randint(0, 1000))
-        return generate_username(random_username)
 
 
 def register_social_user(provider, user_id, email, first_name, last_name, avatar):
@@ -38,7 +25,7 @@ def register_social_user(provider, user_id, email, first_name, last_name, avatar
             'email': email,
             'first_name': first_name,
             'last_name': last_name,
-            'avatar_google': avatar,
+            f'avatar_{provider}': avatar,
             'password': os.environ.get('SOCIAL_SECRET')}
         user = User.objects.create_user(**user)
         user.is_verified = True

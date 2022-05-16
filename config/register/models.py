@@ -42,9 +42,10 @@ class User(AbstractBaseUser, PermissionsMixin):
                                validators=[validate_image_file_extension,
                                            FileExtensionValidator(allowed_extensions=['jpeg', 'png', 'jpg'])],
                                blank=True)
-    avatar_google = models.SlugField(null=True)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+    avatar_google = models.SlugField(null=True, blank=True)
+    avatar_facebook = models.SlugField(null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True, blank=True)
+    updated = models.DateTimeField(auto_now=True, blank=True)
     is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     auth_provider = models.CharField(
@@ -54,7 +55,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'avatar']
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'avatar', 'avatar_google', 'avatar_facebook', 'created', 'updated']
 
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"

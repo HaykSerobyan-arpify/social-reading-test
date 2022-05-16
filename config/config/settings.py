@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'drf_yasg',
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
-    'rest_framework_simplejwt.token_blacklist',
     'categories',
     'quotes',
     'register',
@@ -57,9 +56,10 @@ INSTALLED_APPS = [
     # 'allauth.socialaccount',
     # 'allauth.socialaccount.providers.facebook',
     # 'allauth.socialaccount.providers.google',
+    # 'rest_framework_simplejwt.token_blacklist',
     # 'social_django',
-    'social_auth',
     # 'oauth2_provider',
+    'social_auth',
 ]
 
 MIDDLEWARE = [
@@ -107,10 +107,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': 'social_reading_db',
-        'ENFORCE_SCHEMA': False,
-        'CLIENT': {
-            'host': MONGO_URI
-        }
+        # 'CLIENT': {
+        #     'host': MONGO_URI
+        # }
     }
 }
 
@@ -183,7 +182,7 @@ REST_FRAMEWORK = {
 AUTH_USER_MODEL = 'register.User'
 
 # EMAIL CONFIG
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "hayk.serobyan.89@gmail.com"
@@ -203,9 +202,10 @@ DJOSER = {
     "SET_USERNAME_RETYPE": True,
     "SET_PASSWORD_RETYPE": True,
     "USERNAME_RESET_CONFIRM_URL": "password/reset/confirm/{uid}/{token}",
-    "PASSWORD_RESET_CONFIRM_URL": "email/reset/confirm/{uid}/{token}",
+    "PASSWORD_RESET_CONFIRM_URL": "reset_password/{uid}/{token}",
     "ACTIVATION_URL": "activate/{uid}/{token}",
     "SEND_ACTIVATION_EMAIL": True,
+    "USERNAME_RESET_SHOW_EMAIL_NOT_FOUND": True,
     "SOCIAL_AUTH_TOKEN_STRATEGY": "djoser.social.token.jwt.TokenStrategy",
     "SOCIAL_AUTH_ALLOWED_REDIRECT_URIS": [
         "your redirect url",
@@ -214,15 +214,19 @@ DJOSER = {
     'EMAIL': {
         'activation': 'djoser.email.ActivationEmail',
         'confirmation': 'djoser.email.ConfirmationEmail',
-        'password_reset': 'djoser.email.PasswordResetEmail',
+        'password_reset': 'register.email.PasswordResetEmail',
         'password_changed_confirmation': 'djoser.email.PasswordChangedConfirmationEmail',
         'username_changed_confirmation': 'djoser.email.UsernameChangedConfirmationEmail',
         'username_reset': 'djoser.email.UsernameResetEmail',
-    }
+    },
+    'SERIALIZERS':
+        {
+            'messages': 'djoser.constants.Messages',
+        },
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=7),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=15),
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': False,
@@ -248,9 +252,9 @@ SIMPLE_JWT = {
 
     'JTI_CLAIM': 'jti',
 
-    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
-    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
-    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+    # 'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+    # 'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
+    # 'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 
 SOCIALACCOUNT_PROVIDERS = {
@@ -358,3 +362,5 @@ SWAGGER_SETTINGS = {
 # LOGIN_REDIRECT_URL = 'home'
 # LOGOUT_URL = 'logout'
 # LOGOUT_REDIRECT_URL = 'login'
+
+DOMAIN = 'social-reading-application.herokuapp.com'
