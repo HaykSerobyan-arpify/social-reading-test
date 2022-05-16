@@ -107,9 +107,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': 'social_reading_db',
-        # 'CLIENT': {
-        #     'host': MONGO_URI
-        # }
+        'CLIENT': {
+            'host': MONGO_URI
+        }
     }
 }
 
