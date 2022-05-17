@@ -48,23 +48,18 @@ class QuotesViewSet(viewsets.ModelViewSet):
     #     return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     def perform_create(self, serializer):
-
         # text recognition
         quote_text = get_text_from_picture(self.request.data.get('quote_file'))
-        try:
-            if self.request.data.get('author') == '':
-                serializer.save(author=self.request.user, quote_text=quote_text)
-            else:
-                serializer.save(quote_text=quote_text)
-        except ValueError:
-            raise FieldError("User must be authorised")
 
-    def get_success_headers(self, data):
-        client = pymongo.MongoClient(MONGO_URI)
-        db = client.social_reading_db
-        category = data['book_category'].capitalize()
-        if db.categories_category.find_one({"name": category}) is None:
-            Category.objects.create(name=category)
+        serializer.save(author=self.request.user, quote_text=quote_text)
+
+
+def get_success_headers(self, data):
+    client = pymongo.MongoClient(MONGO_URI)
+    db = client.social_reading_db
+    category = data['book_category'].capitalize()
+    if db.categories_category.find_one({"name": category}) is None:
+        Category.objects.create(name=category)
 
 
 class QuotesViewHTML(View):
