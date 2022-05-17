@@ -2,9 +2,11 @@ from django.core.exceptions import FieldError
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from rest_framework import serializers
+from rest_framework import serializers, status
 from rest_framework import viewsets
 from rest_framework.generics import get_object_or_404
+from rest_framework.response import Response
+
 from quotes.models import Quote
 from categories.models import Category
 import pymongo
@@ -41,12 +43,12 @@ class QuotesViewSet(viewsets.ModelViewSet):
     filter_backends = (DjangoFilterBackend,)
     filterset_class = QuoteFilter
 
-    # def create(self, request, *args, **kwargs):
-    #     serializer = self.get_serializer(data=request.data)
-    #     serializer.is_valid(raise_exception=True)
-    #     self.perform_create(serializer)
-    #     headers = self.get_success_headers(serializer.data)
-    #     return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     def perform_create(self, serializer):
 
@@ -54,14 +56,9 @@ class QuotesViewSet(viewsets.ModelViewSet):
         quote_text = get_text_from_picture(self.request.data.get('quote_file'))
         try:
             if isinstance(self.request.user, AnonymousUser):
-
-                print("if", self.request.user)
-                print(type(self.request.user))
                 serializer.save(author=None, quote_text=quote_text)
             else:
-                print("else", self.request.user)
-                print(type(self.request.user))
-                serializer.save(quote_text=quote_text)
+                serializer.save(author=self.request.user, quote_text=quote_text)
         except ValueError:
             raise FieldError("User must be authorised")
 
