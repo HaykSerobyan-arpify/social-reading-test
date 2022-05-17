@@ -7,8 +7,20 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
+from abc import ABC
 from datetime import timedelta
 from pathlib import Path
+from djongo.base import DatabaseWrapper
+from djongo.operations import DatabaseOperations
+
+
+class PatchedDatabaseOperations(DatabaseOperations, ABC):
+
+    def conditional_expression_supported_in_where_clause(self, expression):
+        return False
+
+
+DatabaseWrapper.ops_class = PatchedDatabaseOperations
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # import social_core.backends.facebook
@@ -59,7 +71,7 @@ INSTALLED_APPS = [
     # 'rest_framework_simplejwt.token_blacklist',
     # 'social_django',
     # 'oauth2_provider',
-    'social_auth',
+    # 'social_auth',
 ]
 
 MIDDLEWARE = [
@@ -186,8 +198,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "hayk.serobyan.89@gmail.com"
-# EMAIL_HOST_PASSWORD = "vytpzzxemxfjwayj"
-EMAIL_HOST_PASSWORD = 'thxopkdcpafjuifm'    # socialreading.xyz
+EMAIL_HOST_PASSWORD = "vytpzzxemxfjwayj"
+# EMAIL_HOST_PASSWORD = 'thxopkdcpafjuifm'  # socialreading.xyz
 
 EMAIL_USE_TLS = True
 fail_silently = True
@@ -364,3 +376,4 @@ SWAGGER_SETTINGS = {
 # LOGOUT_REDIRECT_URL = 'login'
 
 DOMAIN = 'social-reading-application.herokuapp.com'
+

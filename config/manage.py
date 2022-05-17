@@ -2,18 +2,9 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-from djongo.base import DatabaseWrapper
-from djongo.operations import DatabaseOperations
 
 
-# add for db decoder errors
-class PatchedDatabaseOperations(DatabaseOperations):
 
-    def conditional_expression_supported_in_where_clause(self, expression):
-        return False
-
-
-DatabaseWrapper.ops_class = PatchedDatabaseOperations
 
 
 def main():

@@ -44,6 +44,11 @@ class User(AbstractBaseUser, PermissionsMixin):
                                blank=True)
     avatar_google = models.SlugField(null=True, blank=True)
     avatar_facebook = models.SlugField(null=True, blank=True)
+    profile_background = models.ImageField(upload_to='profile_backgrounds',
+                                           validators=[validate_image_file_extension,
+                                                       FileExtensionValidator(
+                                                           allowed_extensions=['jpeg', 'png', 'jpg'])],
+                                           blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True, blank=True)
     updated = models.DateTimeField(auto_now=True, blank=True)
     is_active = models.BooleanField(default=False)

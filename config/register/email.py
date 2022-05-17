@@ -24,7 +24,7 @@ class PasswordResetEmail(BaseEmailMessage):
         context["token"] = default_token_generator.make_token(user)
         context["url"] = settings.ACTIVATION_URL.format(**context)
         context["random_digits"] = random_digits
-        print(context)
+        # print(context)
         return context
 
     def send(self, to, *args, **kwargs):

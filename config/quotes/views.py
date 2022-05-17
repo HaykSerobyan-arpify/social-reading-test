@@ -14,6 +14,8 @@ from quotes.service import get_client_ip, QuoteFilter, get_text_from_picture
 from config.settings import DATETIME_FORMAT
 from django.views.generic.base import View
 
+from register.views import UserSerializer
+
 
 def coming_soon(request):
     return render(request, 'quotes/coming_soon.html')
@@ -22,7 +24,7 @@ def coming_soon(request):
 class QuoteSerializer(serializers.ModelSerializer):
     date_posted = serializers.DateTimeField(read_only=True, format=DATETIME_FORMAT, input_formats=None)
 
-    # author = UserSerializer(read_only=True)
+    author = UserSerializer(read_only=True)
 
     class Meta:
         model = Quote
