@@ -54,8 +54,13 @@ class QuotesViewSet(viewsets.ModelViewSet):
         quote_text = get_text_from_picture(self.request.data.get('quote_file'))
         try:
             if isinstance(self.request.user, AnonymousUser):
+
+                print("if", self.request.user)
+                print(type(self.request.user))
                 serializer.save(author=None, quote_text=quote_text)
             else:
+                print("else", self.request.user)
+                print(type(self.request.user))
                 serializer.save(quote_text=quote_text)
         except ValueError:
             raise FieldError("User must be authorised")
