@@ -21,7 +21,7 @@ from register.views import UserSerializer
 
 
 def coming_soon(request):
-    return render(request, 'quotes/coming_soon.html')
+    return render(request, 'register/reset_password.html')
 
 
 class QuoteSerializer(serializers.ModelSerializer):
