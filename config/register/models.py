@@ -44,7 +44,7 @@ class User(AbstractBaseUser, PermissionsMixin):
                                blank=True)
     avatar_google = models.SlugField(null=True, blank=True)
     avatar_facebook = models.SlugField(null=True, blank=True)
-    profile_background = models.ImageField(upload_to='profile_backgrounds',
+    profile_background = models.ImageField(default= 'profile_default_background.jpeg', upload_to='profile_backgrounds',
                                            validators=[validate_image_file_extension,
                                                        FileExtensionValidator(
                                                            allowed_extensions=['jpeg', 'png', 'jpg'])],

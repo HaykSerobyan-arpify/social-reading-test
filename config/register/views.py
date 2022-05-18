@@ -12,7 +12,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'email', 'first_name', 'last_name', 'avatar', 'created',
                   'updated', 'avatar_google', 'avatar_facebook', 'profile_background')
-        read_only_fields = ['avatar_google', 'avatar_facebook', 'profile_background', ]
+        # read_only_fields = ['avatar_google', 'avatar_facebook', 'profile_background',]
 
 
 class UsersViewSet(viewsets.ModelViewSet):
