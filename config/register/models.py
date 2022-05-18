@@ -44,11 +44,11 @@ class User(AbstractBaseUser, PermissionsMixin):
                                blank=True)
     avatar_google = models.SlugField(null=True, blank=True)
     avatar_facebook = models.SlugField(null=True, blank=True)
-    profile_background = models.ImageField(default= 'profile_default_background.jpeg', upload_to='profile_backgrounds',
+    profile_background = models.ImageField(default='profile_default_background.jpeg', upload_to='profile_backgrounds',
                                            validators=[validate_image_file_extension,
                                                        FileExtensionValidator(
                                                            allowed_extensions=['jpeg', 'png', 'jpg'])],
-                                           blank=True, null=True)
+                                           blank=True)
     created = models.DateTimeField(auto_now_add=True, blank=True)
     updated = models.DateTimeField(auto_now=True, blank=True)
     is_active = models.BooleanField(default=False)
@@ -60,7 +60,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'avatar', 'avatar_google', 'avatar_facebook', 'created', 'updated']
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'avatar', 'avatar_google',
+                       'avatar_facebook', 'profile_background', 'created', 'updated', ]
 
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"
