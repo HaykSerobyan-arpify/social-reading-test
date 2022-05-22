@@ -6,7 +6,7 @@ from rest_framework import serializers, status
 from rest_framework import viewsets
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
-
+from comments.views import CommentsSerializer
 from quotes.models import Quote
 from categories.models import Category
 import pymongo
@@ -16,7 +16,6 @@ from quotes.service import get_client_ip, QuoteFilter, get_text_from_picture
 from config.settings import DATETIME_FORMAT
 from django.views.generic.base import View
 from django.contrib.auth.models import AnonymousUser
-
 from register.views import UserSerializer
 
 
@@ -24,17 +23,30 @@ def coming_soon(request):
     return render(request, 'quotes/coming_soon.html')
 
 
+def like_quote(request):
+    quote = get_object_or_404(Quote, id=request.POST.get('quote_id'))
+    if quote.likes.filter(id=request.user.id).exists():
+        pass
+    else:
+        quote.likes.add(request.user)
+    return HttpResponseRedirect(reverse('coming_soon'))
+
+
 class QuoteSerializer(serializers.ModelSerializer):
     date_posted = serializers.DateTimeField(read_only=True, format=DATETIME_FORMAT, input_formats=None)
-
+    total_likes = serializers.SerializerMethodField()
     author = UserSerializer(read_only=True)
+    comments = CommentsSerializer(many=True, read_only=True)
 
     class Meta:
         model = Quote
         fields = ('id', 'author', 'date_posted',
                   'book_author', 'quote_title', 'book_category',
                   'quote_file', 'height', 'width', 'quote_text',
-                  'text_background', 'likes', 'save_users')
+                  'text_background', 'total_likes', 'likes_by_user', 'save_users', 'comments')
+
+    def get_total_likes(self, instance):
+        return instance.likes_by_user.all().count()
 
 
 class QuotesViewSet(viewsets.ModelViewSet):
@@ -75,12 +87,3 @@ class QuotesViewHTML(View):
     def get(self, request):
         quotes = Quote.objects.all()
         return render(request, 'quotes/quote_list.html', {'quote_list': quotes})
-
-
-def like_quote(request):
-    quote = get_object_or_404(Quote, id=request.POST.get('quote_id'))
-    if quote.likes.filter(id=request.user.id).exists():
-        pass
-    else:
-        quote.likes.add(request.user)
-    return HttpResponseRedirect(reverse('coming_soon'))

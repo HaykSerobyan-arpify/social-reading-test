@@ -4,6 +4,8 @@ from rest_framework.exceptions import ValidationError
 from config.validators import CharValidator
 import uuid
 
+from register.models import User
+
 
 class Category(models.Model):
     id = models.UUIDField(
@@ -12,6 +14,8 @@ class Category(models.Model):
         editable=False)
     name = models.CharField('category', max_length=15,
                             validators=[MinLengthValidator(limit_value=2, message=None), ], unique=True)
+
+    users = models.ManyToManyField(User, related_name='category_users', blank=True)
 
     # add unique category and ignore case
     def save(self, *args, **kwargs):

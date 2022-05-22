@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
     'social_django',
+    'comments',
     # 'allauth',
     # 'allauth.account',
     # 'allauth.socialaccount',
