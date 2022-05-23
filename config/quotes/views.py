@@ -85,7 +85,7 @@ class QuotesViewSet(viewsets.ModelViewSet):
             new_category = Category.objects.create(name=category)
             new_category.users.set([user_id])
         else:
-            print(db.categories_category.find_one({"name": category}))
+            db.categories_category.find_one({"name": category}).set(user_id)
             print(db.categories_category.find_one({"name": category}).get('users'))
 
 
