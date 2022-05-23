@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'django_filters',
     'social_django',
     'comments',
+    # 'notifications',
     # 'allauth',
     # 'allauth.account',
     # 'allauth.socialaccount',

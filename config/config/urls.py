@@ -48,6 +48,7 @@ urlpatterns = [
     path('comments/', include('comments.urls')),
     path('quotes/', include('quotes.urls')),
     path('register/', include('register.urls')),
+    # path('inbox/notifications/', include('notifications.urls', namespace='notifications')),
     path('auth/', include("djoser.urls")),
     path('auth/', include('djoser.urls.jwt')),
     # re_path(r'^auth/', include('djoser.urls.authtoken')),

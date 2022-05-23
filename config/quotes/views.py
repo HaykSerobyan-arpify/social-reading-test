@@ -78,8 +78,12 @@ class QuotesViewSet(viewsets.ModelViewSet):
         client = pymongo.MongoClient(MONGO_URI)
         db = client.social_reading_db
         category = data['book_category'].capitalize()
-        if db.categories_category.find_one({"name": category}) is None:
+        find_category = db.categories_category.find_one({"name": category})
+        user = self.request.user
+        if find_category is None:
             Category.objects.create(name=category)
+        else:
+            find_category.updateMany({'id': find_category.id}, {'$push': {"users": user}})
 
 
 class QuotesViewHTML(View):
