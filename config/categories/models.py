@@ -15,7 +15,7 @@ class Category(models.Model):
     name = models.CharField('category', max_length=15,
                             validators=[MinLengthValidator(limit_value=2, message=None), ], unique=True)
 
-    users = models.ManyToManyField(User, related_name='category_users', blank=True)
+    users = models.ManyToManyField(User, blank=True)
 
     # add unique category and ignore case
     def save(self, *args, **kwargs):
