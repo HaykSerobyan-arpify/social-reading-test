@@ -2,6 +2,7 @@ from django.core.exceptions import FieldError
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from pymongo.errors import BulkWriteError
 from rest_framework import serializers, status
 from rest_framework import viewsets
 from rest_framework.generics import get_object_or_404
@@ -86,9 +87,10 @@ class QuotesViewSet(viewsets.ModelViewSet):
             print(new_category)
         else:
             cat = Category.objects.get(name=category)
-            print(user.id)
-            print(Category.objects.all())
-            cat.users.add(self.request.user)
+            try:
+                cat.users.add(self.request.user)
+            except BulkWriteError:
+                print('this user already exist in array')
             cat.save()
 
 
