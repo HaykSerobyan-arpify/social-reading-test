@@ -87,8 +87,7 @@ class QuotesViewSet(viewsets.ModelViewSet):
         else:
             cat = Category.objects.get(name=category)
             print(user.id)
-            print(cat.users)
-            print(list(cat.users))
+            print(Category.objects.all())
             cat.users.add(self.request.user)
             cat.save()
 
