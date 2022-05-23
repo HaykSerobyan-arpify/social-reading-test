@@ -78,7 +78,7 @@ class QuotesViewSet(viewsets.ModelViewSet):
         client = pymongo.MongoClient(MONGO_URI)
         db = client.social_reading_db
         category = data['book_category'].capitalize()
-        print(data.author.id)
+        print(data.get('author').get('id'))
         find_category = db.categories_category.find_one({"name": category})
         user = self.request.user
         if find_category is None:
