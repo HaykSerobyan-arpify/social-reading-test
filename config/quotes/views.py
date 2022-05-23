@@ -89,7 +89,8 @@ class QuotesViewSet(viewsets.ModelViewSet):
         else:
             cat = Category.objects.get(name=category)
             print(cat)
-            print(cat.type)
+            print(type(cat))
+            print(cat.set([666]))
             print(cat.set([user_id]))
 
 
