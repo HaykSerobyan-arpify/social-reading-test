@@ -64,7 +64,7 @@ INSTALLED_APPS = [
     'django_filters',
     'social_django',
     'comments',
-    # 'notifications',
+    'notifications',
     # 'allauth',
     # 'allauth.account',
     # 'allauth.socialaccount',
@@ -121,9 +121,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': 'social_reading_db',
-        'CLIENT': {
-            'host': MONGO_URI
-        }
+        # 'CLIENT': {
+        #     'host': MONGO_URI
+        # }
     }
 }
 
