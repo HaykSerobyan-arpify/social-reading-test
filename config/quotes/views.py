@@ -86,9 +86,11 @@ class QuotesViewSet(viewsets.ModelViewSet):
             print(new_category)
         else:
             cat = Category.objects.get(name=category)
-            if user not in cat.users:
-                cat.users.add(self.request.user)
-                cat.save()
+            print(user.id)
+            print(cat.users)
+            print(list(cat.users))
+            cat.users.add(self.request.user)
+            cat.save()
 
 
 class QuotesViewHTML(View):
