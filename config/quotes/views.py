@@ -89,10 +89,7 @@ class QuotesViewSet(viewsets.ModelViewSet):
             print(new_category)
         else:
             cat = Category.objects.get(name=category)
-            print(cat)
-            print(type(cat))
-            print(cat.users.add(2))
-            # print(cat.users.set(1))
+            cat.users.add(self.request.user)
             cat.save()
 
 
