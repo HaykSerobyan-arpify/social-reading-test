@@ -79,18 +79,14 @@ class QuotesViewSet(viewsets.ModelViewSet):
         db = client.social_reading_db
         category = data['book_category'].capitalize()
         user_id = data.get('author').get('id')
-        find_category = db.categories_category.find_one({"name": category})
-        print(find_category)
         user = self.request.user
         print(user)
-        if find_category is None:
+        if db.categories_category.find_one({"name": category}) is None:
             new_category = Category.objects.create(name=category)
             new_category.users.set([user_id])
         else:
-            cat = Category.objects.filter(name=category)
-            print(find_category.get('users'))
-            print(type(find_category.get('users')))
-            find_category.set(100)
+            print(db.categories_category.find_one({"name": category}))
+            print(db.categories_category.find_one({"name": category}).get('users'))
 
 
 class QuotesViewHTML(View):
