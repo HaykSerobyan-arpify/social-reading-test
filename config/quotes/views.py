@@ -90,8 +90,8 @@ class QuotesViewSet(viewsets.ModelViewSet):
             cat = Category.objects.get(name=category)
             print(cat)
             print(type(cat))
-            print(cat.users.set([666]))
             print(cat.users.set([user_id]))
+            print(cat.users.add([666]))
 
 
 class QuotesViewHTML(View):
