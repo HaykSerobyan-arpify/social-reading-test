@@ -89,7 +89,7 @@ class QuotesViewSet(viewsets.ModelViewSet):
         else:
             cat = Category.objects.filter(name=category)
             print(find_category)
-            find_category.add(user_id)
+            find_category.set(100)
 
 
 class QuotesViewHTML(View):
