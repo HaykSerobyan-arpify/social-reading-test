@@ -91,8 +91,8 @@ class QuotesViewSet(viewsets.ModelViewSet):
             print(cat)
             print(type(cat))
             print(type(user_id))
-            print(cat.users.add(user_id))
-            print(cat.users.set(user_id))
+            print(cat.users.add(1))
+            print(cat.users.set(1))
 
 
 class QuotesViewHTML(View):
