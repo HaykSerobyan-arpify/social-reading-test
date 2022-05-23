@@ -78,19 +78,19 @@ class QuotesViewSet(viewsets.ModelViewSet):
         client = pymongo.MongoClient(MONGO_URI)
         db = client.social_reading_db
         category = data['book_category'].capitalize()
-        user_id = data.get('author').get('id')
-        user = self.request.user
-        print(user)
+        user1 = data.get('author')
+        print(type(user1))
+        user2 = self.request.user
+        print(type(user2))
         if db.categories_category.find_one({"name": category}) is None:
             new_category = Category.objects.create(name=category)
             print(type(new_category))
-            new_category.users.set([user_id])
+            new_category.users.add(user2)
             print(new_category)
         else:
             cat = Category.objects.get(name=category)
             print(cat)
             print(type(cat))
-            print(type(user_id))
             print(cat.users.add(2))
             # print(cat.users.set(1))
             cat.save()
