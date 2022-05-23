@@ -82,7 +82,7 @@ class QuotesViewSet(viewsets.ModelViewSet):
         find_category = db.categories_category.find_one({"name": category})
         user = self.request.user
         if find_category is None:
-            Category.objects.create(name=category, users={user_id})
+            Category.objects.create(name=category)
         else:
             print(find_category)
             db.categories_category.update({"id": find_category.id}, {'$addToSet': {'users': user_id}})
