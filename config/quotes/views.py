@@ -80,9 +80,12 @@ class QuotesViewSet(viewsets.ModelViewSet):
         category = data['book_category'].capitalize()
         user_id = data.get('author').get('id')
         find_category = db.categories_category.find_one({"name": category})
+        print(find_category)
         user = self.request.user
         if find_category is None:
             Category.objects.create(name=category)
+
+            db.categories_category
         else:
             db.categories_category.update_one({"name": category}, {'$push': {'users': [100]}})
 
