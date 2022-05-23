@@ -87,7 +87,8 @@ class QuotesViewSet(viewsets.ModelViewSet):
             new_category = Category.objects.create(name=category)
             new_category.users.set([user_id])
         else:
-            db.categories_category.update_one({"name": category}, {'$push': {'users': [100]}})
+            cat = Category.objects.filter(name=category)
+            cat.users.add(user_id)
 
 
 class QuotesViewHTML(View):
