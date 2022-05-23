@@ -82,9 +82,7 @@ class QuotesViewSet(viewsets.ModelViewSet):
         user = self.request.user
         if db.categories_category.find_one({"name": category}) is None:
             new_category = Category.objects.create(name=category)
-            print(type(new_category))
             new_category.users.add(user)
-            print(new_category)
         else:
             cat = Category.objects.get(name=category)
             try:
@@ -92,8 +90,8 @@ class QuotesViewSet(viewsets.ModelViewSet):
             except BulkWriteError:
                 print('this user already exist in array')
             except Exception:
-                print('-')
-
+                # if user exists in category users
+                pass
 
 class QuotesViewHTML(View):
 
