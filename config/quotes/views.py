@@ -83,7 +83,7 @@ class QuotesViewSet(viewsets.ModelViewSet):
         if find_category is None:
             Category.objects.create(name=category)
         else:
-            find_category.updateMany({'id': find_category.id}, {'$push': {"users": user}})
+            find_category['users'] += user
 
 
 class QuotesViewHTML(View):
