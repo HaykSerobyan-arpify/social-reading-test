@@ -81,7 +81,7 @@ class QuotesViewSet(viewsets.ModelViewSet):
         user_id = data.get('author').get('id')
         find_category = db.categories_category.find_one({"name": category})
         user = self.request.user
-        if find_category is None:
+        if db.categories_category.find_one({"name": category}) is None:
             Category.objects.create(name=category)
         else:
             print(find_category.get('id'))
