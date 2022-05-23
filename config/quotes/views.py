@@ -83,7 +83,9 @@ class QuotesViewSet(viewsets.ModelViewSet):
         print(user)
         if db.categories_category.find_one({"name": category}) is None:
             new_category = Category.objects.create(name=category)
+            print(type(new_category))
             new_category.users.set([user_id])
+            print(new_category)
         else:
             db.categories_category.find_one({"name": category}).set(user_id)
             print(db.categories_category.find_one({"name": category}).get('users'))
