@@ -88,7 +88,8 @@ class QuotesViewSet(viewsets.ModelViewSet):
             new_category.users.set([user_id])
         else:
             cat = Category.objects.filter(name=category)
-            print(find_category)
+            print(find_category.get('users'))
+            print(type(find_category.get('users')))
             find_category.set(100)
 
 
