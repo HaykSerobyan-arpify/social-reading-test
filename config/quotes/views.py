@@ -93,7 +93,6 @@ class QuotesViewSet(viewsets.ModelViewSet):
                 print('this user already exist in array')
             except Exception:
                 print('-')
-            cat.save()
 
 
 class QuotesViewHTML(View):
