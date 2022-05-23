@@ -91,6 +91,8 @@ class QuotesViewSet(viewsets.ModelViewSet):
                 cat.users.add(self.request.user)
             except BulkWriteError:
                 print('this user already exist in array')
+            except Exception:
+                print('-')
             cat.save()
 
 
