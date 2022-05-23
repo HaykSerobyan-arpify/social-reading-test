@@ -86,7 +86,7 @@ class QuotesViewSet(viewsets.ModelViewSet):
         else:
             print(find_category.get('id'))
             print(user_id)
-            db.categories_category.update({"id": find_category.get('id')}, {'$push': {'users': user_id}})
+            db.categories_category.update_one({"id": find_category.get('id')}, {'$set': {'users': user_id}})
 
 
 class QuotesViewHTML(View):
