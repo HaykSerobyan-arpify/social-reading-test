@@ -78,18 +78,13 @@ class QuotesViewSet(viewsets.ModelViewSet):
         client = pymongo.MongoClient(MONGO_URI)
         db = client.social_reading_db
         category = data['book_category'].capitalize()
-        print(data, self.request.user)
         user_id = data.get('author').get('id')
         find_category = db.categories_category.find_one({"name": category})
         user = self.request.user
-        if db.categories_category.find_one({"name": category}) is None:
+        if find_category is None:
             Category.objects.create(name=category)
-            db.categories_category.update_one({"name": category}, {'$set': {'users': [user_id]}})
         else:
-            print(find_category.get('id'))
-            print(db.categories_category.update_one({"id": find_category.get('id')}, {'$set': {'users': user_id}}))
-            db.categories_category.update_one({"id": find_category.get('id')}, {'$set': {'users': user_id}})
-            db.categories_category_users.insert_one({'user_id': user_id, 'category_id': find_category.get('id'), })
+            db.categories_category.update_one({"id": find_category.get('id')}, {'$push': {'users': user_id}})
 
 
 class QuotesViewHTML(View):
