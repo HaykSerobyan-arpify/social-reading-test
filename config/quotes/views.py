@@ -84,14 +84,14 @@ class QuotesViewSet(viewsets.ModelViewSet):
         if db.categories_category.find_one({"name": category}) is None:
             new_category = Category.objects.create(name=category)
             print(type(new_category))
-            new_category.users.set([user_id, 100])
+            new_category.users.set([user_id])
             print(new_category)
         else:
             cat = Category.objects.get(name=category)
             print(cat)
             print(type(cat))
+            print(type(user_id))
             print(cat.users.set([user_id]))
-            print(cat.users.add([666]))
 
 
 class QuotesViewHTML(View):
