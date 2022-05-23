@@ -79,8 +79,6 @@ class QuotesViewSet(viewsets.ModelViewSet):
         db = client.social_reading_db
         category = data['book_category'].capitalize()
         find_category = db.categories_category.find_one({"name": category})
-        print(data)
-        print(find_category)
         user = self.request.user
         if find_category is None:
             Category.objects.create(name=category)
