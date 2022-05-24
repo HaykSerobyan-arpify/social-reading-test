@@ -1,3 +1,4 @@
+from django.forms.models import model_to_dict
 from rest_framework import serializers, permissions
 from rest_framework import viewsets
 from config.settings import DATETIME_FORMAT
@@ -13,6 +14,12 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'email', 'first_name', 'last_name', 'avatar', 'created',
                   'updated', 'avatar_google', 'avatar_facebook', 'profile_background')
         # read_only_fields = ['avatar_google', 'avatar_facebook', 'profile_background',]
+
+
+class CommentUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User()
+        fields = ('id', 'first_name', 'last_name', 'avatar',)
 
 
 class UsersViewSet(viewsets.ModelViewSet):

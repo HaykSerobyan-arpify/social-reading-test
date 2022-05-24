@@ -2,7 +2,7 @@ from rest_framework import viewsets
 from rest_framework import serializers
 from comments.models import Comment
 from config.settings import DATETIME_FORMAT
-from register.views import UserSerializer
+from register.views import UserSerializer, CommentUserSerializer
 
 
 class FilterCommentListSerializer(serializers.ListSerializer):
@@ -20,8 +20,7 @@ class RecursiveSerializer(serializers.Serializer):
 
 
 class CommentsSerializer(serializers.ModelSerializer):
-
-    user = UserSerializer
+    user = CommentUserSerializer(read_only=True)
     parent = Comment
     children = RecursiveSerializer(many=True, required=False)
     created = serializers.DateTimeField(read_only=True, format=DATETIME_FORMAT, input_formats=None)
