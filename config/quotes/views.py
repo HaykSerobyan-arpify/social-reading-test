@@ -99,6 +99,11 @@ class QuotesViewSet(viewsets.ModelViewSet):
                 pass
 
 
+class PublishQuotesViewSet(viewsets.ModelViewSet):
+    serializer_class = QuoteSerializer
+    queryset = Quote.objects.filter(published=True)
+
+
 class QuotesViewHTML(View):
 
     def get(self, request):

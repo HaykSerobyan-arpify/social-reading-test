@@ -10,6 +10,8 @@ class Quote(models.Model):
         primary_key=True,
         default=uuid.uuid4,
         editable=False)
+    published = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=False)
 
     author = models.ForeignKey(User, related_name='author', on_delete=models.CASCADE, verbose_name='Quote author')
 
@@ -22,8 +24,6 @@ class Quote(models.Model):
     book_category = models.CharField('Category', max_length=20,
                                      validators=[MinLengthValidator(limit_value=2, message=None), ])
 
-    height = models.IntegerField(default=0)
-    width = models.IntegerField(default=0)
     quote_file = models.ImageField('Quote', upload_to='upload',
                                    validators=[validate_image_file_extension,
                                                FileExtensionValidator(allowed_extensions=['jpeg', 'png', 'jpg'])],
