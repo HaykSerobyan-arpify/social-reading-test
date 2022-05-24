@@ -88,10 +88,12 @@ class QuotesViewSet(viewsets.ModelViewSet):
             try:
                 cat.users.add(self.request.user)
             except BulkWriteError:
-                print('this user already exist in array')
+                # if user exists in category users
+                pass
             except Exception:
                 # if user exists in category users
                 pass
+
 
 class QuotesViewHTML(View):
 
