@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from config.settings import MEDIA_ROOT, STATIC_ROOT, STATIC_URL
 from django.views.static import serve
-from quotes.views import coming_soon, like_quote
+from quotes.views import coming_soon, like_quote, PublishQuotesViewSet
 
 # DRF YASG
 from rest_framework import permissions
@@ -46,6 +46,7 @@ urlpatterns = [
     re_path(r'like/<uuid:id>', like_quote, name='like_quote'),
     path('categories/', include('categories.urls')),
     path('comments/', include('comments.urls')),
+    path('public-quotes/', PublishQuotesViewSet.as_view({'get': 'list'})),
     path('quotes/', include('quotes.urls')),
     path('register/', include('register.urls')),
     # path('inbox/notifications/', include('notifications.urls', namespace='notifications')),
