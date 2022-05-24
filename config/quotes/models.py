@@ -13,10 +13,10 @@ class Quote(models.Model):
 
     author = models.ForeignKey(User, related_name='author', on_delete=models.CASCADE, verbose_name='Quote author')
 
-    book_author = models.CharField('Book author', max_length=20, default='Book author(Recognized)',
+    book_author = models.CharField('Book author', max_length=20, default='Book author(Recognized)', blank=True,
                                    validators=[MinLengthValidator(limit_value=2, message=None), ])
 
-    quote_title = models.CharField('Quote Title', max_length=20, default='Book title(Recognized)',
+    quote_title = models.CharField('Quote Title', max_length=20, default='Book title(Recognized)', blank=True,
                                    validators=[MinLengthValidator(limit_value=2, message=None), ])
 
     book_category = models.CharField('Category', max_length=20,
@@ -55,6 +55,3 @@ class Quote(models.Model):
                f'Title: {self.quote_title} | ' \
                f'Category: {self.book_category} | ' \
                f'User: {self.author}'
-
-
-
