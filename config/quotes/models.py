@@ -26,10 +26,7 @@ class Quote(models.Model):
 
     quote_file = models.ImageField('Quote', upload_to='upload',
                                    validators=[validate_image_file_extension,
-                                               FileExtensionValidator(allowed_extensions=['jpeg', 'png', 'jpg'])],
-                                   height_field='height',
-                                   width_field='width'
-                                   )
+                                               FileExtensionValidator(allowed_extensions=['jpeg', 'png', 'jpg'])],)
 
     quote_text = models.TextField('Quote text', blank=True, null=True)
 
