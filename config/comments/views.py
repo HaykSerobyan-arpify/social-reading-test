@@ -40,3 +40,7 @@ class CommentsSerializer(serializers.ModelSerializer):
 class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentsSerializer
     queryset = Comment.objects.all()
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
