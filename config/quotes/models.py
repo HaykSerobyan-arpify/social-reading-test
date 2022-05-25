@@ -35,7 +35,7 @@ class Quote(models.Model):
                                                     FileExtensionValidator(allowed_extensions=['jpeg', 'png', 'jpg'])],
                                         null=True, blank=True)
 
-    styles = models.JSONField(blank=True)
+    styles = models.JSONField(blank=True, null=True)
 
     save_users = models.ManyToManyField(User, blank=True)
 
