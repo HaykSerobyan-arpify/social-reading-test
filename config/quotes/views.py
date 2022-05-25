@@ -43,7 +43,7 @@ class QuoteSerializer(serializers.ModelSerializer):
         model = Quote
         fields = ('id', 'author', 'date_posted',
                   'book_author', 'quote_title', 'book_category',
-                  'quote_file', 'quote_text', 'style',
+                  'quote_file', 'quote_text', 'styles',
                   'text_background', 'total_likes', 'likes_by_user',
                   'save_users', 'comments', 'published', 'is_active')
 
