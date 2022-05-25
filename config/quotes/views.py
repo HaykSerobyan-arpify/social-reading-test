@@ -43,8 +43,9 @@ class QuoteSerializer(serializers.ModelSerializer):
         model = Quote
         fields = ('id', 'author', 'date_posted',
                   'book_author', 'quote_title', 'book_category',
-                  'quote_file', 'quote_text',
-                  'text_background', 'total_likes', 'likes_by_user', 'save_users', 'comments')
+                  'quote_file', 'quote_text', 'style',
+                  'text_background', 'total_likes', 'likes_by_user',
+                  'save_users', 'comments', 'published', 'is_active')
 
     def get_total_likes(self, instance):
         return instance.likes_by_user.all().count()
