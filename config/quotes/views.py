@@ -2,12 +2,14 @@ from django.core.exceptions import FieldError
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.views.generic import DetailView
 from pymongo.errors import BulkWriteError
 from rest_framework import serializers, status
 from rest_framework import viewsets
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from comments.views import CommentsSerializer
+from likes.views import LikeSerializer
 from quotes.models import Quote
 from categories.models import Category
 import pymongo
@@ -35,8 +37,8 @@ def like_quote(request):
 
 class QuoteSerializer(serializers.ModelSerializer):
     date_posted = serializers.DateTimeField(read_only=True, format=DATETIME_FORMAT, input_formats=None)
-    total_likes = serializers.SerializerMethodField()
     author = UserSerializer(read_only=True)
+    likes = LikeSerializer(many=True)
     comments = CommentsSerializer(many=True, read_only=True)
 
     class Meta:
@@ -44,11 +46,8 @@ class QuoteSerializer(serializers.ModelSerializer):
         fields = ('id', 'author', 'date_posted',
                   'book_author', 'quote_title', 'book_category',
                   'quote_file', 'quote_text', 'styles',
-                  'text_background', 'total_likes', 'likes_by_user',
+                  'text_background', 'likes',
                   'save_users', 'comments', 'published', 'is_active')
-
-    def get_total_likes(self, instance):
-        return instance.likes_by_user.all().count()
 
 
 class QuotesViewSet(viewsets.ModelViewSet):

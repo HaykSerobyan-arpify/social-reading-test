@@ -26,7 +26,7 @@ class Quote(models.Model):
 
     quote_file = models.ImageField('Quote', upload_to='upload',
                                    validators=[validate_image_file_extension,
-                                               FileExtensionValidator(allowed_extensions=['jpeg', 'png', 'jpg'])],)
+                                               FileExtensionValidator(allowed_extensions=['jpeg', 'png', 'jpg'])], )
 
     quote_text = models.TextField('Quote text', blank=True, null=True)
 
@@ -41,16 +41,12 @@ class Quote(models.Model):
 
     date_posted = models.DateTimeField(auto_now_add=True)
 
-    likes_by_user = models.ManyToManyField(User, related_name='quote_likes', blank=True)
-
     def get_comments(self):
         return self.comments.filter(parent=None)
-
-    def total_likes(self):
-        return self.likes_by_user.count()
 
     def __str__(self):
         return f'Author: {self.book_author} | ' \
                f'Title: {self.quote_title} | ' \
                f'Category: {self.book_category} | ' \
-               f'User: {self.author}'
+               f'User: {self.author}' \
+               f'Date posted: {self.date_posted}'

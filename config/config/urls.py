@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from config.settings import MEDIA_ROOT, STATIC_ROOT, STATIC_URL
 from django.views.static import serve
-from quotes.views import coming_soon, like_quote, PublishQuotesViewSet
+from quotes.views import coming_soon, PublishQuotesViewSet
 
 # DRF YASG
 from rest_framework import permissions
@@ -43,9 +43,9 @@ urlpatterns = [
     path('social_auth/', include(('social_auth.urls', 'social_auth'),
                                  namespace="social_auth")),
     path('admin/', admin.site.urls),
-    re_path(r'like/<uuid:id>', like_quote, name='like_quote'),
     path('categories/', include('categories.urls')),
     path('comments/', include('comments.urls')),
+    path('likes/', include('likes.urls')),
     path('public-quotes/', PublishQuotesViewSet.as_view({'get': 'list'})),
     path('quotes/', include('quotes.urls')),
     path('register/', include('register.urls')),

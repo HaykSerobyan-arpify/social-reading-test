@@ -16,7 +16,7 @@ class UserSerializer(serializers.ModelSerializer):
         # read_only_fields = ['avatar_google', 'avatar_facebook', 'profile_background',]
 
 
-class CommentUserSerializer(serializers.ModelSerializer):
+class UserFieldSerializer(serializers.ModelSerializer):
     class Meta:
         model = User()
         fields = ('id', 'first_name', 'last_name', 'avatar',)

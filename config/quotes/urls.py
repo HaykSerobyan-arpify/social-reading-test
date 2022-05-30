@@ -1,6 +1,6 @@
 from django.urls import path
 from rest_framework import routers
-from .views import QuotesViewSet, QuotesViewHTML, PublishQuotesViewSet
+from .views import QuotesViewSet, QuotesViewHTML
 
 router = routers.SimpleRouter()
 router.register('', QuotesViewSet)
