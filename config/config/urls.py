@@ -46,6 +46,7 @@ urlpatterns = [
     path('categories/', include('categories.urls')),
     path('comments/', include('comments.urls')),
     path('likes/', include('likes.urls')),
+    path('save/', include('save.urls')),
     path('public-quotes/', PublishQuotesViewSet.as_view({'get': 'list'})),
     path('quotes/', include('quotes.urls')),
     path('register/', include('register.urls')),
