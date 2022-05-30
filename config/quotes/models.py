@@ -37,8 +37,6 @@ class Quote(models.Model):
 
     styles = models.JSONField(blank=True, null=True)
 
-    save_users = models.ManyToManyField(User, blank=True)
-
     date_posted = models.DateTimeField(auto_now_add=True)
 
     def get_comments(self):

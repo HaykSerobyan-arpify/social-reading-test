@@ -20,6 +20,7 @@ from config.settings import DATETIME_FORMAT
 from django.views.generic.base import View
 from django.contrib.auth.models import AnonymousUser
 from register.views import UserSerializer
+from save.views import SaveSerializer
 
 
 def coming_soon(request):
@@ -39,6 +40,7 @@ class QuoteSerializer(serializers.ModelSerializer):
     date_posted = serializers.DateTimeField(read_only=True, format=DATETIME_FORMAT, input_formats=None)
     author = UserSerializer(read_only=True)
     likes = LikeSerializer(many=True, read_only=True)
+    save_users = SaveSerializer(many=True, read_only=True)
     comments = CommentsSerializer(many=True, read_only=True)
 
     class Meta:

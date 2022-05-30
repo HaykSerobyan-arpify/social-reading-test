@@ -1,4 +1,3 @@
-import uuid
 from django.db import models
 from quotes.models import Quote
 from register.models import User
