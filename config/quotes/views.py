@@ -38,7 +38,7 @@ def like_quote(request):
 class QuoteSerializer(serializers.ModelSerializer):
     date_posted = serializers.DateTimeField(read_only=True, format=DATETIME_FORMAT, input_formats=None)
     author = UserSerializer(read_only=True)
-    likes = LikeSerializer(many=True)
+    likes = LikeSerializer(many=True, read_only=True)
     comments = CommentsSerializer(many=True, read_only=True)
 
     class Meta:
