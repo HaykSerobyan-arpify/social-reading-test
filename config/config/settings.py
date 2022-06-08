@@ -66,6 +66,8 @@ INSTALLED_APPS = [
     'comments',
     'likes',
     'save',
+    'library',
+    'sentence',
     # 'notifications',
     # 'allauth',
     # 'allauth.account',

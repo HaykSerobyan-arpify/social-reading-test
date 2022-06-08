@@ -19,7 +19,13 @@ class UserSerializer(serializers.ModelSerializer):
 class UserFieldSerializer(serializers.ModelSerializer):
     class Meta:
         model = User()
-        fields = ('id', 'first_name', 'last_name', 'avatar',)
+        fields = ('id', 'first_name', 'last_name', 'avatar', )
+
+
+class SaveUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User()
+        fields = ('id', )
 
 
 class UsersViewSet(viewsets.ModelViewSet):

@@ -50,6 +50,8 @@ urlpatterns = [
     path('public-quotes/', PublishQuotesViewSet.as_view({'get': 'list'})),
     path('quotes/', include('quotes.urls')),
     path('register/', include('register.urls')),
+    path('library/', include('library.urls')),
+    path('sentences/', include('sentence.urls')),
     # path('inbox/notifications/', include('notifications.urls', namespace='notifications')),
     path('auth/', include("djoser.urls")),
     path('auth/', include('djoser.urls.jwt')),
