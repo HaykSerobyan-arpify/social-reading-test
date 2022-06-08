@@ -13,7 +13,7 @@ class BookSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Book
-        fields = ('id', 'author', 'title', 'category', 'publisher', 'publish_date', 'sentences',)
+        fields = ('id', 'author', 'title', 'category', 'publisher', 'publish_date',)
 
 
 class BookViewSet(viewsets.ModelViewSet):
@@ -23,4 +23,3 @@ class BookViewSet(viewsets.ModelViewSet):
     def perform_update(self, serializer):
         client = pymongo.MongoClient(MONGO_URI)
         db = client.social_reading_db
-        content = db.library_book.find_one({"author": 'sadasd'}).get('content')
