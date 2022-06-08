@@ -27,10 +27,10 @@ class CharFilterInFilter(filters.BaseInFilter, filters.CharFilter):
 
 class QuoteFilter(filters.FilterSet):
     author_id = CharFilterInFilter(field_name='author', lookup_expr='in')
-    save = CharFilterInFilter(field_name='save_users', lookup_expr='in')
+    id = CharFilterInFilter(field_name='id', lookup_expr='in')
     category = CharFilterInFilter(field_name='book_category', lookup_expr='in')
 
     class META:
         model = Quote
-        fields = ('author', 'book_category', 'save_users')
+        fields = ('author', 'book_category', 'id')
 
