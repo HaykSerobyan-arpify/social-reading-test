@@ -8,4 +8,4 @@ class Sentence(models.Model):
     text = models.TextField('Text')
 
     def __str__(self):
-        return f'{self.book}  --- {self.index_name}'
+        return f'{self.id}---{self.book}---{self.index_name}'

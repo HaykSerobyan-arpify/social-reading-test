@@ -7,7 +7,7 @@ class SentenceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Sentence
-        fields = ('book', 'index_name', 'text')
+        fields = ('id', 'book', 'index_name', 'text')
 
 
 class SentenceViewSet(viewsets.ModelViewSet):
