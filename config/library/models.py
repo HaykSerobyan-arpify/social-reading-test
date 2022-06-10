@@ -18,11 +18,10 @@ class Book(models.Model):
     title = models.CharField('title', max_length=50,
                              validators=[MinLengthValidator(limit_value=2, message=None), ])
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    publish_date = models.DateTimeField()
+    publish_date = models.DateField()
     publisher = models.CharField('Publisher', max_length=50,
                                  validators=[MinLengthValidator(limit_value=2, message=None)])
     content = models.ManyToManyField('Sentence', blank=True)
-
 
     def __str__(self):
         return f'{self.author} | {self.title}'

@@ -36,6 +36,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-t^694pr*ju(n*$=a(ckpgia%^upx9#t6a8*d+gx+oae6arvm35'
 MONGO_URI = 'mongodb+srv://doadmin:9dl2gm8073J16yUq@db-mongodb-social-reading-815ddadc.mongo.ondigitalocean.com/' \
             'admin?authSource=admin&replicaSet=db-mongodb-social-reading&tls=true&tlsCAFile=config/ca-certificate.cer'
+SOCIAL_SECRET = 'WillChangeLater'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -382,4 +383,3 @@ SWAGGER_SETTINGS = {
 # LOGOUT_REDIRECT_URL = 'login'
 
 DOMAIN = 'social-reading-application.herokuapp.com'
-

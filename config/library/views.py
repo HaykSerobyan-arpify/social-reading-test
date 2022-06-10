@@ -1,10 +1,6 @@
-import json
-import pprint
-
 import pymongo
 from rest_framework import serializers, permissions
 from rest_framework import viewsets
-
 from config.settings import MONGO_URI
 from .models import Book
 
