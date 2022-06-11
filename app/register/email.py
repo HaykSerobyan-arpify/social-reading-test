@@ -98,7 +98,6 @@ class ConfirmationEmail(BaseEmailMessage):
         user = context.get("user")
         context["first_name"] = user.first_name
         context["last_name"] = user.last_name
-        context["name_surname"] = name_surname
         context["url"] = settings.ACTIVATION_URL.format(**context)
         return context
 
