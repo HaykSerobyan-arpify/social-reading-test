@@ -4,7 +4,7 @@
 
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-    <title>Reset Password Email Template</title>
+    <title>Activation Email Template</title>
     <meta name="description" content="Reset Password Email Template.">
     <style type="text/css">
         a:hover {text-decoration: underline !important;}
@@ -43,16 +43,16 @@
                             <tr>
                                 <td style="padding:0 35px;">
                                     <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:32px;font-family:'Rubik',sans-serif;">
-                                        You're receiving this email because you need to finish activation process on {{ site_name }}</h1>
+                                        You're receiving this email because you need to finish activation process on </h1>
+                                    <p>{{ site_name }}</p>
                                     <span
                                             style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
                                     <p>Please go to the following page to activate account:</p>
-                                    <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
                                         <a href="{{ protocol }}://{{ site_name }}/activate/{{ uid|safe }}/{{ token|safe }}" style="color:#FFFFFF; text-decoration:none; padding:10px;" >
-                                            {{ protocol }}://{{ site_name }}/activate/{{ uid|safe }}/{{ token|safe }}</a>
-                                    </p>
+                                            <p>{{ protocol }}://{{ site_name }}/activate/{{ uid|safe }}/{{ token|safe }}</p></a>
+
                                     <p>Thanks for using our site!</p>
-                                    <p>The SocialReading team</p>
+                                    <p>The {{ site_name }} team</p>
 
                                 </td>
                             </tr>
