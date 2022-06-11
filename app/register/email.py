@@ -92,7 +92,10 @@ class ConfirmationEmail(BaseEmailMessage):
     template_name = "register/confirmation.html"
 
     def get_context_data(self):
+
         context = super().get_context_data()
+
+        user = context.get("user")
         context["first_name"] = user.first_name
         last_name["last_name"] = user.last_name
         context["name_surname"] = name_surname
