@@ -62,9 +62,6 @@ class ActivationEmail(BaseEmailMessage):
         context["uid"] = utils.encode_uid(user.pk)
         context["token"] = default_token_generator.make_token(user)
         context["url"] = settings.ACTIVATION_URL.format(**context)
-        print(type(user))
-        print(user.last_name)
-        print(user.first_name)
         return context
 
     def send(self, to, *args, **kwargs):
@@ -96,12 +93,10 @@ class ConfirmationEmail(BaseEmailMessage):
 
     def get_context_data(self):
         context = super().get_context_data()
-
-        name_surname = context.get("user").split('-')[1].split()
-
+        context["first_name"] = user.first_name
+        last_name["last_name"] = user.last_name
         context["name_surname"] = name_surname
         context["url"] = settings.ACTIVATION_URL.format(**context)
-        print(name_surname)
         return context
 
     def send(self, to, *args, **kwargs):
@@ -121,7 +116,8 @@ class ConfirmationEmail(BaseEmailMessage):
             'uid': self.get_context_data().get('uid'),
             'token': self.get_context_data().get('token'),
             'email': self.context.get('user'),
-            'name_surname': self.get_context_data().get('name_surname'),
+            'first_name': self.get_context_data().get('first_name'),
+            'last_name': self.get_context_data().get('last_name'),
         }
         html_content = get_template('register/confirmation.html').render(ctx)
         self.attach_alternative(html_content, "text/html")
