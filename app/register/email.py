@@ -86,3 +86,42 @@ class ActivationEmail(BaseEmailMessage):
         html_content = get_template('register/activation.html').render(ctx)
         self.attach_alternative(html_content, "text/html")
         super(BaseEmailMessage, self).send(*args, **kwargs)
+
+
+# override djoser implementation for Confirmation Email
+class ConfirmationEmail(BaseEmailMessage):
+    template_name = "register/confirmation.html"
+
+    def get_context_data(self):
+        context = super().get_context_data()
+
+        user = context.get("user")
+        context["uid"] = utils.encode_uid(user.pk)
+        context["token"] = default_token_generator.make_token(user)
+        context["url"] = settings.ACTIVATION_URL.format(**context)
+        print(user)
+        print(context)
+        return context
+
+    def send(self, to, *args, **kwargs):
+        self.render()
+        self.subject = DOMAIN + '- Your account has been successfully created and activated!'
+        self.to = to
+        self.cc = kwargs.pop('cc', [])
+        self.bcc = kwargs.pop('bcc', [])
+        self.reply_to = kwargs.pop('reply_to', [])
+        self.from_email = kwargs.pop(
+            'from_email', EMAIL_HOST_USER
+        )
+
+        ctx = {
+            'site_name': DOMAIN,
+            'protocol': self.get_context_data().get('protocol'),
+            'uid': self.get_context_data().get('uid'),
+            'token': self.get_context_data().get('token'),
+            'email': self.context.get('user'),
+            'first_name': self.get_context_data().get('name', None),
+        }
+        html_content = get_template('register/activation.html').render(ctx)
+        self.attach_alternative(html_content, "text/html")
+        super(BaseEmailMessage, self).send(*args, **kwargs)
