@@ -7,6 +7,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
+import environ
 from abc import ABC
 from datetime import timedelta
 from pathlib import Path
@@ -26,6 +27,9 @@ DatabaseWrapper.ops_class = PatchedDatabaseOperations
 # import social_core.backends.facebook
 # import social_django.middleware
 # import register.models
+
+env = environ.Env()
+environ.Env.read_env()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
