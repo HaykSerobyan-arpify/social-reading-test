@@ -119,3 +119,37 @@ class ConfirmationEmail(BaseEmailMessage):
         html_content = get_template('register/confirmation.html').render(ctx)
         self.attach_alternative(html_content, "text/html")
         super(BaseEmailMessage, self).send(*args, **kwargs)
+
+
+# override djoser implementation for Password Changed Confirmation Email
+class PasswordChangedConfirmationEmail(BaseEmailMessage):
+    template_name = "register/password_changed.html"
+
+    def get_context_data(self):
+        context = super().get_context_data()
+
+        user = context.get("user")
+        context["first_name"] = user.first_name
+        context["last_name"] = user.last_name
+        return context
+
+    def send(self, to, *args, **kwargs):
+        self.render()
+        self.subject = DOMAIN + '- Your password has been successfully changed!'
+        self.to = to
+        self.cc = kwargs.pop('cc', [])
+        self.bcc = kwargs.pop('bcc', [])
+        self.reply_to = kwargs.pop('reply_to', [])
+        self.from_email = kwargs.pop(
+            'from_email', EMAIL_HOST_USER
+        )
+
+        ctx = {
+            'site_name': DOMAIN,
+            'email': self.context.get('user'),
+            'first_name': self.get_context_data().get('first_name'),
+            'last_name': self.get_context_data().get('last_name'),
+        }
+        html_content = get_template('register/password_changed.html').render(ctx)
+        self.attach_alternative(html_content, "text/html")
+        super(BaseEmailMessage, self).send(*args, **kwargs)

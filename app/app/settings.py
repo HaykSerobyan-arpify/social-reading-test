@@ -234,7 +234,7 @@ DJOSER = {
         'activation': 'register.email.ActivationEmail',
         'confirmation': 'register.email.ConfirmationEmail',
         'password_reset': 'register.email.PasswordResetEmail',
-        'password_changed_confirmation': 'djoser.email.PasswordChangedConfirmationEmail',
+        'password_changed_confirmation': 'register.email.PasswordChangedConfirmationEmail',
         'username_changed_confirmation': 'djoser.email.UsernameChangedConfirmationEmail',
         'username_reset': 'djoser.email.UsernameResetEmail',
     },
