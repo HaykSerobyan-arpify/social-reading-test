@@ -95,12 +95,11 @@ class ConfirmationEmail(BaseEmailMessage):
     def get_context_data(self):
         context = super().get_context_data()
 
-        name, surname = context.get("user").split('-')[1].split(' ')
+        name_surname = context.get("user").split('-')[1].split()
 
-        context["name"] = name
-        context["surname"] = surname
-        print("name", name)
-        print("surname", surname)
+        context["name_surname"] = name_surname
+        context["url"] = settings.ACTIVATION_URL.format(**context)
+        print(name_surname)
         return context
 
     def send(self, to, *args, **kwargs):
@@ -117,9 +116,10 @@ class ConfirmationEmail(BaseEmailMessage):
         ctx = {
             'site_name': DOMAIN,
             'protocol': self.get_context_data().get('protocol'),
+            'uid': self.get_context_data().get('uid'),
+            'token': self.get_context_data().get('token'),
             'email': self.context.get('user'),
-            'name': self.get_context_data().get('name'),
-            'surname': self.get_context_data().get('surname'),
+            'name_surname': self.get_context_data().get('name_surname'),
         }
         html_content = get_template('register/confirmation.html').render(ctx)
         self.attach_alternative(html_content, "text/html")
