@@ -103,10 +103,3 @@ class QuotesViewSet(viewsets.ModelViewSet):
 class PublishQuotesViewSet(viewsets.ModelViewSet):
     serializer_class = QuoteSerializer
     queryset = Quote.objects.filter(published=True)
-
-
-class QuotesViewHTML(View):
-
-    def get(self, request):
-        quotes = Quote.objects.all()
-        return render(request, 'quotes/quote_list.html', {'quote_list': quotes})
