@@ -63,8 +63,8 @@ class ActivationEmail(BaseEmailMessage):
         context["token"] = default_token_generator.make_token(user)
         context["url"] = settings.ACTIVATION_URL.format(**context)
         print(type(user))
-        print(user.get('last_name'))
-        print(user.get('first_name'))
+        print(user['last_name'])
+        print(user['first_name'])
         return context
 
     def send(self, to, *args, **kwargs):
