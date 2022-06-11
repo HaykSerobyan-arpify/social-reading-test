@@ -1,7 +1,7 @@
 from django.forms.models import model_to_dict
 from rest_framework import serializers, permissions
 from rest_framework import viewsets
-from config.settings import DATETIME_FORMAT
+from app.settings import DATETIME_FORMAT
 from .models import User
 
 

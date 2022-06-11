@@ -13,10 +13,9 @@ from likes.views import LikeSerializer
 from quotes.models import Quote
 from categories.models import Category
 import pymongo
-from config.settings import MONGO_URI
+from app.settings import MONGO_URI, DATETIME_FORMAT
 from django_filters.rest_framework import DjangoFilterBackend
 from quotes.service import get_client_ip, QuoteFilter, get_text_from_picture
-from config.settings import DATETIME_FORMAT
 from django.views.generic.base import View
 from django.contrib.auth.models import AnonymousUser
 from register.views import UserSerializer

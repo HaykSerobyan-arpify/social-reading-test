@@ -5,7 +5,7 @@ from templated_mail.mail import BaseEmailMessage
 from django.template.loader import render_to_string, get_template
 from djoser import utils
 from djoser.conf import settings
-from config.settings import EMAIL_HOST_USER, DOMAIN
+from app.settings import EMAIL_HOST_USER, DOMAIN
 
 # generate random digits by length 6
 random_digits = ''.join(random.choice(string.digits) for _ in range(6))

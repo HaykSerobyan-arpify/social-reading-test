@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from config.settings import GOOGLE_CLIENT_ID
+from app.settings import GOOGLE_CLIENT_ID
 from . import google, facebook
 from .register import register_social_user
 from rest_framework.exceptions import AuthenticationFailed

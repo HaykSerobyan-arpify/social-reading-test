@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from rest_framework import serializers
 from comments.models import Comment
-from config.settings import DATETIME_FORMAT
+from app.settings import DATETIME_FORMAT
 from register.views import UserSerializer, UserFieldSerializer
 
 

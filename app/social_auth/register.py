@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate
 from register.models import User
-from config.settings import SOCIAL_SECRET
+from app.settings import SOCIAL_SECRET
 from rest_framework.exceptions import AuthenticationFailed
 
 

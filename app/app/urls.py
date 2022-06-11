@@ -1,4 +1,4 @@
-"""config URL Configuration
+"""app URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.0/topics/http/urls/
@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include, re_path
-from config.settings import MEDIA_ROOT, STATIC_ROOT, STATIC_URL
+from app.settings import MEDIA_ROOT, STATIC_ROOT, STATIC_URL
 from django.views.static import serve
 from quotes.views import coming_soon, PublishQuotesViewSet
 
