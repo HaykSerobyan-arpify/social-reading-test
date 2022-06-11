@@ -23,7 +23,7 @@ from save.views import SaveSerializer
 
 
 def coming_soon(request):
-    return render(request, 'quotes/coming_soon.html')
+    return render(request, 'register/activation.html')
 
 
 def like_quote(request):

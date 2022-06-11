@@ -231,7 +231,7 @@ DJOSER = {
         "your redirect url",
     ],
     'EMAIL': {
-        'activation': 'djoser.email.ActivationEmail',
+        'activation': 'register.email.ActivationEmail',
         'confirmation': 'djoser.email.ConfirmationEmail',
         'password_reset': 'register.email.PasswordResetEmail',
         'password_changed_confirmation': 'djoser.email.PasswordChangedConfirmationEmail',
