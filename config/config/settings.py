@@ -33,11 +33,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-t^694pr*ju(n*$=a(ckpgia%^upx9#t6a8*d+gx+oae6arvm35'
-MONGO_URI = 'mongodb+srv://doadmin:9dl2gm8073J16yUq@db-mongodb-social-reading-815ddadc.mongo.ondigitalocean.com/' \
-            'admin?authSource=admin&replicaSet=db-mongodb-social-reading&tls=true&tlsCAFile=config/ca-certificate.cer'
-SOCIAL_SECRET = 'WillChangeLater'
-
+SECRET_KEY = os.getenv('SECRET_KEY')
+MONGO_URI = os.getenv('MONGO_URI')
+SOCIAL_SECRET = os.getenv('SOCIAL_SECRET')
+print(MONGO_URI)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -125,9 +124,9 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'social_reading_db',
+        'NAME': os.getenv('DB_NAME'),
         'CLIENT': {
-            'host': MONGO_URI
+            'host': os.getenv('MONGO_URI')
         }
     }
 }
@@ -204,10 +203,8 @@ AUTH_USER_MODEL = 'register.User'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = "hayk.serobyan.89@gmail.com"
-EMAIL_HOST_PASSWORD = "vytpzzxemxfjwayj"
-# EMAIL_HOST_PASSWORD = 'thxopkdcpafjuifm'  # socialreading.xyz
-
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 fail_silently = True
 
@@ -336,22 +333,13 @@ SITE_ID = 1
 
 DATETIME_FORMAT = '%d/%m/%Y %H:%M:%S'
 
-SOCIAL_AUTH_FACEBOOK_KEY = '253977466914818'
-SOCIAL_AUTH_FACEBOOK_SECRET = '086c847b8f8a046d9149bf3cac6196a4'
+SOCIAL_AUTH_FACEBOOK_KEY = os.getenv('SOCIAL_AUTH_FACEBOOK_KEY')
+SOCIAL_AUTH_FACEBOOK_SECRET = os.getenv('SOCIAL_AUTH_FACEBOOK_SECRET')
 
-# GOOGLE_CLIENT_ID = '725774715302-u7a7bgj1tm2hrdggirs0qume24ndtup8.apps.googleusercontent.com'
-GOOGLE_CLIENT_ID = "157706975933-5mp07f2obqtjbrtbf3amqvts8s7q8puf.apps.googleusercontent.com"
-GOOGLE_CLIENT_SECRET = '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'
-# SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
-#     'https://www.googleapis.com/auth/userinfo.email',
-#     'https://www.googleapis.com/auth/userinfo.profile',
-#     'openid'
-# ]
+GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
+GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
+
 SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = ['first_name', 'last_name']
-
-SOCIAL_AUTH_INSTAGRAM_KEY = '2021347461409638'  # Client ID
-SOCIAL_AUTH_INSTAGRAM_SECRET = '637560d268b3e70f3eac783f09533caf'  # Client SECRET
-SOCIAL_AUTH_INSTAGRAM_EXTRA_DATA = [('user', 'user'), ]
 
 SWAGGER_SETTINGS = {
     'DEFAULT_FIELD_INSPECTORS': [
@@ -366,20 +354,4 @@ SWAGGER_SETTINGS = {
     ],
 }
 
-# SOCIAL_AUTH_URL_NAMESPACE = 'social'
-# LOGIN_URL = '/admin/login/'
-
-# LOGIN_REDIRECT_URL = 'https://blooming-forest-92426.herokuapp.com/'
-# LOGOUT_REDIRECT_URL = 'https://blooming-forest-92426.herokuapp.com/'
-
-# ACCOUNT_USER_MODEL_USERNAME_FIELD = None
-# ACCOUNT_EMAIL_REQUIRED = True
-# ACCOUNT_USERNAME_REQUIRED = False
-# ACCOUNT_AUTHENTICATION_METHOD = 'email'
-
-# LOGIN_URL = 'login'
-# LOGIN_REDIRECT_URL = 'home'
-# LOGOUT_URL = 'logout'
-# LOGOUT_REDIRECT_URL = 'login'
-
-DOMAIN = 'social-reading-application.herokuapp.com'
+DOMAIN = os.getenv('DOMAIN')
