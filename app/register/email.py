@@ -93,8 +93,8 @@ class ConfirmationEmail(BaseEmailMessage):
 
     def get_context_data(self):
         context = super().get_context_data()
-        context["first_name"] = user.first_name
-        last_name["last_name"] = user.last_name
+        context["first_name"] = user.first_name.capitalize()
+        last_name["last_name"] = user.last_name.capitalize()
         context["name_surname"] = name_surname
         context["url"] = settings.ACTIVATION_URL.format(**context)
         return context
