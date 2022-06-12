@@ -19,7 +19,9 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('index_name', models.CharField(max_length=50, verbose_name='IndexName')),
                 ('text', models.TextField(verbose_name='Text')),
-                ('book', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='sentences', to='library.book')),
+                ('book', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                           related_name='sentences',
+                                           to='library.book')),
             ],
         ),
     ]

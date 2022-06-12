@@ -1,5 +1,4 @@
 from rest_framework import serializers
-
 from app.settings import GOOGLE_CLIENT_ID
 from . import google, facebook
 from .register import register_social_user
@@ -29,19 +28,20 @@ class FacebookSocialAuthSerializer(serializers.Serializer):
                 last_name=last_name,
                 avatar=avatar,
             )
-        except Exception as identifier:
+        except Exception:
             raise serializers.ValidationError('The token  is invalid or expired. Please login again.')
 
 
 class GoogleSocialAuthSerializer(serializers.Serializer):
     auth_token = serializers.CharField()
 
-    def validate_auth_token(self, auth_token):
+    @staticmethod
+    def validate_auth_token(auth_token):
         user_data = google.Google.validate(auth_token)
         try:
             user_data['sub']
 
-        except:
+        except Exception:
             raise serializers.ValidationError(
                 'The token is invalid or expired. Please login again.'
             )
@@ -56,21 +56,6 @@ class GoogleSocialAuthSerializer(serializers.Serializer):
         avatar_google = user_data['picture']
 
         provider = 'google'
-        a = {'iss': 'accounts.google.com',
-             'azp': '157706975933-5mp07f2obqtjbrtbf3amqvts8s7q8puf.apps.googleusercontent.com',
-             'aud': '157706975933-5mp07f2obqtjbrtbf3amqvts8s7q8puf.apps.googleusercontent.com',
-             'sub': '117331089545997807598',
-             'email': 'manchess20@gmail.com',
-             'email_verified': True,
-             'at_hash': 'Sld138ew7Wt8B7HJd5ERoA',
-             'name': 'Tigran Aghajanyan',
-             'picture': 'https://lh3.googleusercontent.com/a-/AOh14GiM1p5t-DQStkpwzTWMN5QwyoRrZk-MIF-uW3cfVA=s96-c',
-             'given_name': 'Tigran',
-             'family_name': 'Aghajanyan',
-             'locale': 'ru',
-             'iat': 1652278589,
-             'exp': 1652282189,
-             'jti': 'ca9a5a4b1841c6761721345fca31e9bae1808fd4'}
 
         return register_social_user(
             provider=provider, user_id=user_id,

@@ -14,7 +14,6 @@ def get_client_ip(request):
 
 
 def get_text_from_picture(image_file):
-
     image = Image.open(image_file)
     custom_config = r'--oem 3 --psm 6'
     text = pytesseract.image_to_string(image, config=custom_config, lang='hye+eng+rus')
@@ -33,4 +32,3 @@ class QuoteFilter(filters.FilterSet):
     class META:
         model = Quote
         fields = ('author', 'book_category', 'id')
-

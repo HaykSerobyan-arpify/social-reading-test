@@ -24,13 +24,14 @@ from quotes.views import coming_soon, PublishQuotesViewSet
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-from django.contrib.auth import views as auth_views
 
 schema_view = get_schema_view(
     openapi.Info(
         title="Social Reading App Documentation",
         default_version="v1",
-        description="REST implementation of Django authentication system. djoser library provides a set of Django Rest Framework views to handle basic actions such as registration, login, logout, password reset and account activation. It works with custom user model.",
+        description="REST implementation of Django authentication system. djoser library provides a set of "
+                    "Django Rest Framework views to handle basic actions such as registration, login, logout, "
+                    "password reset and account activation. It works with custom user model.",
         contact=openapi.Contact(email="haykserobyan@arpify.com"),
         license=openapi.License(name="BSD License"),
     ),

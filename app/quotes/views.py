@@ -2,7 +2,6 @@ from django.core.exceptions import FieldError
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from django.views.generic import DetailView
 from pymongo.errors import BulkWriteError
 from rest_framework import serializers, status
 from rest_framework import viewsets
@@ -15,8 +14,7 @@ from categories.models import Category
 import pymongo
 from app.settings import MONGO_URI, DATETIME_FORMAT
 from django_filters.rest_framework import DjangoFilterBackend
-from quotes.service import get_client_ip, QuoteFilter, get_text_from_picture
-from django.views.generic.base import View
+from quotes.service import QuoteFilter, get_text_from_picture
 from django.contrib.auth.models import AnonymousUser
 from register.views import UserSerializer
 from save.views import SaveSerializer

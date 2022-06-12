@@ -17,7 +17,8 @@ from djongo.operations import DatabaseOperations
 
 class PatchedDatabaseOperations(DatabaseOperations, ABC):
 
-    def conditional_expression_supported_in_where_clause(self, expression):
+    @staticmethod
+    def conditional_expression_supported_in_where_clause(expression):
         return False
 
 

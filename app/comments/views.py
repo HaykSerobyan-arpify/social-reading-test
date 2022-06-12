@@ -2,7 +2,7 @@ from rest_framework import viewsets
 from rest_framework import serializers
 from comments.models import Comment
 from app.settings import DATETIME_FORMAT
-from register.views import UserSerializer, UserFieldSerializer
+from register.views import UserFieldSerializer
 
 
 class FilterCommentListSerializer(serializers.ListSerializer):
@@ -43,4 +43,3 @@ class CommentViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
-

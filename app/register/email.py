@@ -2,7 +2,7 @@ import string
 import random
 from django.contrib.auth.tokens import default_token_generator
 from templated_mail.mail import BaseEmailMessage
-from django.template.loader import render_to_string, get_template
+from django.template.loader import get_template
 from djoser import utils
 from djoser.conf import settings
 from app.settings import EMAIL_HOST_USER, DOMAIN

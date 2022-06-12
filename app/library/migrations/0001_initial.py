@@ -6,7 +6,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -18,10 +17,13 @@ class Migration(migrations.Migration):
             name='Book',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('author', models.CharField(max_length=50, validators=[django.core.validators.MinLengthValidator(limit_value=2, message=None)], verbose_name='author')),
-                ('title', models.CharField(max_length=50, validators=[django.core.validators.MinLengthValidator(limit_value=2, message=None)], verbose_name='title')),
+                ('author', models.CharField(max_length=50, validators=[
+                    django.core.validators.MinLengthValidator(limit_value=2, message=None)], verbose_name='author')),
+                ('title', models.CharField(max_length=50, validators=[
+                    django.core.validators.MinLengthValidator(limit_value=2, message=None)], verbose_name='title')),
                 ('publish_date', models.DateTimeField()),
-                ('publisher', models.CharField(max_length=50, validators=[django.core.validators.MinLengthValidator(limit_value=2, message=None)], verbose_name='Publisher')),
+                ('publisher', models.CharField(max_length=50, validators=[
+                    django.core.validators.MinLengthValidator(limit_value=2, message=None)], verbose_name='Publisher')),
                 ('content', models.JSONField(blank=True, verbose_name='Content')),
                 ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='categories.category')),
             ],

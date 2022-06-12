@@ -6,4 +6,3 @@ def CharValidator(value):
         if '-' in el or not el.isalpha():
             if not el.replace('-', '', 1).isalpha():
                 raise ValidationError(detail="Name characters must be alphabet letters or contain only one '-' symbol")
-

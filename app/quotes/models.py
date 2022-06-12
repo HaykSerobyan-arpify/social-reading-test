@@ -1,7 +1,6 @@
 import uuid
 from django.core.validators import MinLengthValidator, validate_image_file_extension, FileExtensionValidator
 from django.db import models
-from app.validators import CharValidator
 from register.models import User
 
 

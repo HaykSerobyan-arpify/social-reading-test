@@ -1,5 +1,5 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import serializers, permissions
+from rest_framework import serializers
 from rest_framework import viewsets
 from .models import Category
 from django_filters import rest_framework as filters
@@ -29,4 +29,3 @@ class CategoriesViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     filter_backends = (DjangoFilterBackend,)
     filterset_class = CategoryFilter
-    # permission_classes = (permissions.IsAuthenticated,)

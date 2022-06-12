@@ -6,7 +6,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -19,7 +18,8 @@ class Migration(migrations.Migration):
             name='Save',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('quote', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='save_users', to='quotes.quote')),
+                ('quote', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='save_users',
+                                            to='quotes.quote')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),

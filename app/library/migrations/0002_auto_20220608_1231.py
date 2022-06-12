@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('library', '0001_initial'),
     ]
@@ -15,7 +14,8 @@ class Migration(migrations.Migration):
             name='Sentence',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('index_name', models.CharField(max_length=50, validators=[django.core.validators.MinLengthValidator(limit_value=2, message=None)], verbose_name='author')),
+                ('index_name', models.CharField(max_length=50, validators=[
+                    django.core.validators.MinLengthValidator(limit_value=2, message=None)], verbose_name='author')),
                 ('text', models.TextField(verbose_name='Text')),
             ],
         ),
