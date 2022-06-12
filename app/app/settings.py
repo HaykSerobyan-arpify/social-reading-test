@@ -29,6 +29,9 @@ DatabaseWrapper.ops_class = PatchedDatabaseOperations
 # import social_django.middleware
 # import register.models
 
+env = environ.Env()
+environ.Env.read_env(env_file='../../env')
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
