@@ -29,6 +29,8 @@ class Quote(models.Model):
 
     quote_text = models.TextField('Quote text', blank=True, null=True)
 
+    percent = models.FloatField('Percent', blank=True, null=True)
+
     text_background = models.ImageField('Quote text background', upload_to='upload',
                                         validators=[validate_image_file_extension,
                                                     FileExtensionValidator(allowed_extensions=['jpeg', 'png', 'jpg'])],

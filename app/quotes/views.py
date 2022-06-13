@@ -14,7 +14,7 @@ from categories.models import Category
 import pymongo
 from app.settings import MONGO_URI, DATETIME_FORMAT
 from django_filters.rest_framework import DjangoFilterBackend
-from quotes.service import QuoteFilter, get_text_from_picture
+from quotes.service import QuoteFilter, get_text_from_book, recognize_text
 from django.contrib.auth.models import AnonymousUser
 from register.views import UserSerializer
 from save.views import SaveSerializer
@@ -44,7 +44,7 @@ class QuoteSerializer(serializers.ModelSerializer):
         model = Quote
         fields = ('id', 'author', 'date_posted',
                   'book_author', 'quote_title', 'book_category',
-                  'quote_file', 'quote_text', 'styles',
+                  'quote_file', 'quote_text', 'percent', 'styles',
                   'text_background', 'likes',
                   'save_users', 'comments', 'published', 'is_active')
 
@@ -65,10 +65,11 @@ class QuotesViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
 
         # text recognition
-        quote_text = get_text_from_picture(self.request.data.get('quote_file'))
+        recognized_array = recognize_text(self.request.data.get('quote_file'))
+        percent, text = get_text_from_book(recognized_array)
         try:
             if isinstance(self.request.user, AnonymousUser):
-                serializer.save(author=None, quote_text=quote_text,
+                serializer.save(author=None, quote_text=text,
                                 quote_title='Book title(Recognized by Python)',
                                 book_author='Book author(Recognized by Python)')
             else:
