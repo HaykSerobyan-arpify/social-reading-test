@@ -9,9 +9,8 @@ import pymongo
 import cv2
 
 
-def recognize_text(file_name):
-    image = cv2.imread(file_name)
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+def recognize_text(file):
+    image = cv2.cvtColor(file, cv2.COLOR_BGR2GRAY)
     thresh = cv2.adaptiveThreshold(image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 201, 100)
 
     # Dilate to combine adjacent text contours
