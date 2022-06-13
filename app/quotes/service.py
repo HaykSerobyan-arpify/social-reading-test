@@ -1,5 +1,6 @@
 from django_filters import rest_framework as filters
 from quotes.models import Quote
+import numpy
 import pytesseract
 from PIL import Image
 from app.settings import MONGO_URI
@@ -9,8 +10,10 @@ import pymongo
 import cv2
 
 
-def recognize_text(file):
-    image = cv2.cvtColor(file, cv2.COLOR_BGR2GRAY)
+def recognize_text(file_name):
+    image = Image.open(file_name)
+    open_cv_image = numpy.array(image)
+    image = cv2.cvtColor(open_cv_image, cv2.COLOR_BGR2GRAY)
     thresh = cv2.adaptiveThreshold(image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 201, 100)
 
     # Dilate to combine adjacent text contours
@@ -53,11 +56,12 @@ def get_text_from_book(recognized_array):
                 search_result.append(book_head)
                 i += 1
     search_result = Counter(search_result).most_common(10)
-    text = ''
-    percent = 0.0
+    book_id, percent = 0, 0.0
+    author, title, text = '', '', ''
     for el in sent.find({"index_name": {"$regex": search_result[0][0], "$options": "-i"}}):
         percent = "{:.2f}".format(el.get('id') / 30733 * 100)
         t = el.get('text')
+        book_id = el.get('book_id')
         if t[0].isdigit():
             text += f"<h3>{el.get('index_name')}</h3>" + '\n' + f"<p>{t}</p>" + '\n'
         else:
@@ -66,7 +70,12 @@ def get_text_from_book(recognized_array):
             t = t[header_index + 1:]
             text += f"<h1>{header}</h1>" + "\n" + f"<h3>{el.get('index_name')}</h3>" + "\n" + f"<p>{t}</p>"
 
-    return text, percent
+    books = db.library_book.find({'id': book_id})
+    for book in books:
+        author = book.get('author')
+        title = book.get('title')
+
+    return text, percent, author, title
 
 
 def get_client_ip(request):

@@ -66,16 +66,18 @@ class QuotesViewSet(viewsets.ModelViewSet):
 
         # text recognition
         recognized_array = recognize_text(self.request.data.get('quote_file'))
-        percent, text = get_text_from_book(recognized_array)
+        quote_text, percent, author, title = get_text_from_book(recognized_array)
+        # later = time.time()
+        # difference = int(later - now)
+        # print(difference)
+        # quote_text = get_text_from_picture(self.request.data.get('quote_file'))
         try:
             if isinstance(self.request.user, AnonymousUser):
-                serializer.save(author=None, quote_text=text,
-                                quote_title='Book title(Recognized by Python)',
-                                book_author='Book author(Recognized by Python)')
+                serializer.save(author=None, book_author=author, quote_title=title,
+                                quote_text=quote_text, percent=percent)
             else:
-                serializer.save(author=self.request.user, quote_text=quote_text,
-                                quote_title='Book title(Recognized by Python)',
-                                book_author='Book author(Recognized by Python)')
+                serializer.save(author=self.request.user, book_author=author, quote_title=title,
+                                quote_text=quote_text, percent=percent)
         except ValueError:
             raise FieldError("User must be authorised")
 
