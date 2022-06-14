@@ -16,6 +16,15 @@ class TextDetectionError(APIException):
     default_detail = "Sorry, the text couldn't be recognized from this image. Please upload another image"
 
 
+def get_text_from_picture(image_file):
+    image = Image.open(image_file)
+    custom_config = r'--oem 3 --psm 6'
+    text = pytesseract.image_to_string(image, config=custom_config, lang='hye+eng+rus')
+    percent = 0.0
+    author, title = 'Սա SENIOR-ի աշխատավարձ ստանալուց հետո', 'Սա SENIOR-ի աշխատավարձ ստանալուց հետո'
+    return text, percent, author, title
+
+
 def recognize_text(file_name):
     image = Image.open(file_name)
     open_cv_image = numpy.array(image)
@@ -94,13 +103,6 @@ def get_client_ip(request):
     else:
         ip = request.META.get('REMOTE_ADDR')
     return ip
-
-
-def get_text_from_picture(image_file):
-    image = Image.open(image_file)
-    custom_config = r'--oem 3 --psm 6'
-    text = pytesseract.image_to_string(image, config=custom_config, lang='hye+eng+rus')
-    return text
 
 
 class CharFilterInFilter(filters.BaseInFilter, filters.CharFilter):
