@@ -1,4 +1,5 @@
 from django_filters import rest_framework as filters
+from rest_framework.exceptions import APIException
 from quotes.models import Quote
 import numpy
 import pytesseract
@@ -8,6 +9,11 @@ import re
 from collections import Counter
 import pymongo
 import cv2
+
+
+class TextDetectionError(APIException):
+    status_code = 415
+    default_detail = "Sorry, the text couldn't be recognized from this image. Please upload another image"
 
 
 def recognize_text(file_name):
@@ -58,22 +64,25 @@ def get_text_from_book(recognized_array):
     search_result = Counter(search_result).most_common(10)
     book_id, percent = 0, 0.0
     author, title, text = '', '', ''
-    for el in sent.find({"index_name": {"$regex": search_result[0][0], "$options": "-i"}}):
-        percent = "{:.2f}".format(el.get('id') / 30733 * 100)
-        t = el.get('text')
-        book_id = el.get('book_id')
-        if t[0].isdigit():
-            text += f"<h3>{el.get('index_name')}</h3>" + '\n' + f"<p>{t}</p>" + '\n'
-        else:
-            header_index = re.search(r"\d", t).start() - 1
-            header = f'<b>{t[:header_index]}</b>'
-            t = t[header_index + 1:]
-            text += f"<h1>{header}</h1>" + "\n" + f"<h3>{el.get('index_name')}</h3>" + "\n" + f"<p>{t}</p>"
+    if len(search_result) == 0:
+        raise TextDetectionError()
+    else:
+        for el in sent.find({"index_name": {"$regex": search_result[0][0], "$options": "-i"}}):
+            percent = "{:.2f}".format(el.get('id') / 30733 * 100)
+            t = el.get('text')
+            book_id = el.get('book_id')
+            if t[0].isdigit():
+                text += f"<h3>{el.get('index_name')}</h3>" + '\n' + f"<p>{t}</p>" + '\n'
+            else:
+                header_index = re.search(r"\d", t).start() - 1
+                header = f'<b>{t[:header_index]}</b>'
+                t = t[header_index + 1:]
+                text += f"<h1>{header}</h1>" + "\n" + f"<h3>{el.get('index_name')}</h3>" + "\n" + f"<p>{t}</p>"
 
-    books = db.library_book.find({'id': book_id})
-    for book in books:
-        author = book.get('author')
-        title = book.get('title')
+        books = db.library_book.find({'id': book_id})
+        for book in books:
+            author = book.get('author')
+            title = book.get('title')
 
     return text, percent, author, title
 
