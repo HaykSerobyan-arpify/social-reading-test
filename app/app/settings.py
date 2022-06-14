@@ -42,7 +42,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 MONGO_URI = os.getenv('MONGO_URI')
 SOCIAL_SECRET = os.getenv('SOCIAL_SECRET')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
