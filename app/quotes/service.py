@@ -1,14 +1,14 @@
-from django_filters import rest_framework as filters
-from rest_framework.exceptions import APIException
-from quotes.models import Quote
-import numpy
-import pytesseract
-from PIL import Image
-from app.settings import MONGO_URI
 import re
 from collections import Counter
-import pymongo
 import cv2
+import numpy
+import pymongo
+import pytesseract
+from PIL import Image
+from django_filters import rest_framework as filters
+from rest_framework.exceptions import APIException
+from app.settings import MONGO_URI
+from quotes.models import Quote
 
 
 class TextDetectionError(APIException):

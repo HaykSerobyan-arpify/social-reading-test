@@ -5,7 +5,6 @@ django-filter~=21.1
 pymongo~=3.12.3
 numpy~=1.22.3
 pytesseract~=0.3.9
-opencv-python~=4.5.5.64
 Pillow~=9.1.0
 djoser~=2.1.0
 six~=1.16.0
